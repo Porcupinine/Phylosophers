@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Phylosophers::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Phylosophers-Debug-5a74514f3e915f1b1a28.json",
+					"jsonFile" : "target-Phylosophers-Debug-884402188b4247699937.json",
 					"name" : "Phylosophers",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/sam/Codam/Phylosophers/cmake-build-debug",
-		"source" : "/sam/Codam/Phylosophers"
+		"build" : "/sam/Codam/Philosofers/cmake-build-debug",
+		"source" : "/sam/Codam/Philosofers"
 	},
 	"version" : 
 	{

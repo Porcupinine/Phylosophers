@@ -1,10 +1,4 @@
-/snap/clion/235/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/235/bin/ninja/linux/x64/ninja -G Ninja -S /sam/Codam/Phylosophers -B /sam/Codam/Phylosophers/cmake-build-debug
--- The C compiler identification is GNU 12.2.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
+/snap/clion/237/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/237/bin/ninja/linux/x64/ninja -G Ninja -S /sam/Codam/Philosofers -B /sam/Codam/Philosofers/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: /sam/Codam/Phylosophers/cmake-build-debug
+-- Build files have been written to: /sam/Codam/Philosofers/cmake-build-debug
