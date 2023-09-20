@@ -1,14 +1,22 @@
-//
-// Created by laura on 31-5-23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   errors.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: laura <laura@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/18 10:35:02 by laura         #+#    #+#                 */
+/*   Updated: 2023/09/18 10:35:05 by laura         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/utils.h"
 #include <unistd.h>
 
-void phi_error(char *error)
+void	phi_error(char *error)
 {
-    int len;
+	int	len;
 
-    len = phi_strlen(error);
-    write(2, error, len);
+	len = phi_strlen(error);
+	write(2, error, len);
 }

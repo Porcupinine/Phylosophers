@@ -1,13 +1,21 @@
-//
-// Created by laura on 31-5-23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   phi_strlen.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: laura <laura@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/18 10:34:04 by laura         #+#    #+#                 */
+/*   Updated: 2023/09/18 10:34:21 by laura         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-int phi_strlen(const char *str)
+int	phi_strlen(const char *str)
 {
-    int len;
+	int	len;
 
-    len = 0;
-    while (str[len] != '\0')
-        len++;
-    return (len);
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }

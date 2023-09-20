@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
     t_philos_data run;
-    if (argc < 5)
+    if (argc < 5 || argc > 6)
     {
         phi_error("Wrong amount of arguments\n");
         return (1);
