@@ -13,6 +13,8 @@
 #ifndef PHILOS_H
 # define PHILOS_H
 
+#include <sys/types.h>
+
 /**
  * @param amount amount of philos sharing the pasta (and amoun of forks)
  * @param lifespan how long a philo can leave without food
@@ -32,10 +34,12 @@ typedef struct s_philos_data
 
 typedef struct s_philo
 {
-	int	number;
-	
+	int		number;
+	pid_t	thread_id;
+	int		last_meal;
+	int		sleep_timer;
 }t_philo;
 
-int	set_data(char **argv, t_philos_data *run);
+int	set_data(int argc, char **argv, t_philos_data *run);
 
 #endif //PHILOS_H
