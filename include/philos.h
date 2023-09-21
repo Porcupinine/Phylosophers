@@ -6,14 +6,28 @@
 /*   By: laura <laura@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 10:37:49 by laura         #+#    #+#                 */
-/*   Updated: 2023/09/18 10:38:08 by laura         ########   odam.nl         */
+/*   Updated: 2023/09/21 16:05:21 by lpraca-l      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOS_H
 # define PHILOS_H
 
-#include <sys/types.h>
+# include <sys/types.h>
+
+/**
+ * @param number philo tag;
+ * @param thread_id philo id;
+ * @param last_meal when philo was done eating
+ * @param sleep_timer when philo started slepping
+ */
+typedef struct s_philo
+{
+	int		number;
+	pid_t	thread_id;
+	int		last_meal;
+	int		sleep_timer;
+}t_philo;
 
 /**
  * @param amount amount of philos sharing the pasta (and amoun of forks)
@@ -30,16 +44,10 @@ typedef struct s_philos_data
 	int	eat;
 	int	sleep;
 	int	cycles;
+	t_philo **philos;
 }t_philos_data;
 
-typedef struct s_philo
-{
-	int		number;
-	pid_t	thread_id;
-	int		last_meal;
-	int		sleep_timer;
-}t_philo;
-
 int	set_data(int argc, char **argv, t_philos_data *run);
+int	create_philos(t_philos_data *philos_data);
 
 #endif //PHILOS_H

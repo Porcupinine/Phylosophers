@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lpraca-l <lpraca-l@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/09/21 15:47:04 by lpraca-l      #+#    #+#                 */
+/*   Updated: 2023/09/21 16:04:25 by lpraca-l      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include/philos.h"
 #include "include/utils.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_philos_data	*run;
 
@@ -18,5 +30,6 @@ int main(int argc, char **argv)
 		phi_error("invalid data\n");
 		return (1);
 	}
+	create_philos(run);
 	return (0);
 }

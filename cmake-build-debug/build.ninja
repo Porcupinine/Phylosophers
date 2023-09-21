@@ -103,6 +103,24 @@ build CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o: C_COMPILER__Phylosop
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
+build CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o: C_COMPILER__Phylosophers_unscanned_Debug /home/lpraca-l/Documents/philo/src/philos/create_philos.c || cmake_object_order_depends_target_Phylosophers
+  DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o.d
+  FLAGS = -g -std=gnu99 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Phylosophers.dir
+  OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
+
+build CMakeFiles/Phylosophers.dir/src/utils/prints.c.o: C_COMPILER__Phylosophers_unscanned_Debug /home/lpraca-l/Documents/philo/src/utils/prints.c || cmake_object_order_depends_target_Phylosophers
+  DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/prints.c.o.d
+  FLAGS = -g -std=gnu99 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Phylosophers.dir
+  OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
+
+build CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o: C_COMPILER__Phylosophers_unscanned_Debug /home/lpraca-l/Documents/philo/src/philos/thread_philos.c || cmake_object_order_depends_target_Phylosophers
+  DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o.d
+  FLAGS = -g -std=gnu99 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Phylosophers.dir
+  OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Phylosophers
@@ -111,7 +129,7 @@ build CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o: C_COMPILER__Phylosop
 #############################################
 # Link the executable Phylosophers
 
-build Phylosophers: C_EXECUTABLE_LINKER__Phylosophers_Debug CMakeFiles/Phylosophers.dir/main.c.o CMakeFiles/Phylosophers.dir/src/philos/philos.c.o CMakeFiles/Phylosophers.dir/src/check/check_input.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_atoi.c.o CMakeFiles/Phylosophers.dir/src/philos/actions.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strlen.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strncmp.c.o CMakeFiles/Phylosophers.dir/src/utils/errors.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o
+build Phylosophers: C_EXECUTABLE_LINKER__Phylosophers_Debug CMakeFiles/Phylosophers.dir/main.c.o CMakeFiles/Phylosophers.dir/src/philos/philos.c.o CMakeFiles/Phylosophers.dir/src/check/check_input.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_atoi.c.o CMakeFiles/Phylosophers.dir/src/philos/actions.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strlen.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strncmp.c.o CMakeFiles/Phylosophers.dir/src/utils/errors.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o CMakeFiles/Phylosophers.dir/src/utils/prints.c.o CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   POST_BUILD = :
