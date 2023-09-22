@@ -7,4 +7,5 @@ add_executable(Phylosophers main.c include/philos.h src/philos/philos.c src/chec
         src/utils/phi_calloc.c
         src/philos/create_philos.c
         src/utils/prints.c
+        src/philos/thread_philos.c
         src/philos/thread_philos.c)
