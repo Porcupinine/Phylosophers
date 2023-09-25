@@ -12,21 +12,21 @@
 
 #include <unistd.h>
 
-//void	eat(int timmer)
-//{
-//	usleep (*timer);
-//
-//}
-//
-//void	sleep(void *arg)
-//{
-//	useconds_t	*timer;
-//
-//	timer = (useconds_t*)arg;
-//	usleep (*timer);
-//}
-//
-//void *think(void *arg)
-//{
-//
-//}
+void	eat()
+{
+	usleep (*timer);
+
+}
+
+void	sleep(void *arg)
+{
+	useconds_t	*timer;
+
+	timer = (useconds_t*)arg;
+	usleep (*timer);
+}
+
+void *think(void *arg)
+{
+
+}

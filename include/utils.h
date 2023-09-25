@@ -21,7 +21,7 @@ int		phi_atoi(const char *str);
 int		phi_strlen(const char *str);
 void	phi_error(char *error);
 void	*ft_calloc(size_t count, size_t size);
-void	print_philos(t_philo **philos);
+void	print_philos(t_philo *philos, size_t size);
 
 
 

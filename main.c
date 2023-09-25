@@ -31,5 +31,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	create_philos(run);
+	thread_philos(run);
+	create_forks(run);
 	return (0);
 }

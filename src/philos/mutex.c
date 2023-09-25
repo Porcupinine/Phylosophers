@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   thread_philos.c                                    :+:    :+:            */
+/*   mutex.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laura <laura@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/25 14:35:16 by laura         #+#    #+#                 */
-/*   Updated: 2023/09/25 14:35:16 by laura         ########   odam.nl         */
+/*   Created: 2023/09/25 15:23:59 by laura         #+#    #+#                 */
+/*   Updated: 2023/09/25 15:23:59 by laura         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,20 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 
-int	thread_philos(t_philos_data *philos_data)
+int	create_forks(t_philos_data *philos_data)
 {
-	pthread_t	*philo;
-	int			count;
+	int	count;
 
 	count = 0;
-	philo = ft_calloc(philos_data->amount, sizeof (pthread_t));
-	if (philo == NULL)
+	philos_data->forks = ft_calloc(philos_data->amount, \
+	sizeof (pthread_mutex_t));
+	if (philos_data->forks == NULL)
 		return (1);
 	while (count < philos_data->amount)
 	{
-		t_philo* aux = philos_data->philos + count;
-		if (pthread_create(philo + count, NULL, \
-		&philo_routine, aux) != 0)
-		{
-			phi_error("Failed to create thread\n");
-			return (1);
-		}
-		count++;
-	}
-	count = 0;
-	while (count < philos_data->amount)
-	{
-		if (pthread_join(philo[count], NULL) != 0)
-			return (1);
+		pthread_mutex_init(&philos_data->forks[count], NULL);
 		count++;
 	}
 	return (0);
 }
-//TODO what to do if we fail?
+//TODO fail

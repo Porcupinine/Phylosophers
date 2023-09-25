@@ -8,4 +8,5 @@ add_executable(Phylosophers main.c include/philos.h src/philos/philos.c src/chec
         src/philos/create_philos.c
         src/utils/prints.c
         src/philos/thread_philos.c
-        src/philos/thread_philos.c)
+        src/philos/thread_philos.c
+		src/philos/mutex.c)

@@ -39,15 +39,20 @@ typedef struct s_philo
  */
 typedef struct s_philos_data
 {
-	int	amount;
-	int	lifespan;
-	int	eat;
-	int	sleep;
-	int	cycles;
-	t_philo **philos;
+	int				amount;
+	int				lifespan;
+	int				eat;
+	int				sleep;
+	int				cycles;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
 }t_philos_data;
 
-int	set_data(int argc, char **argv, t_philos_data *run);
-int	create_philos(t_philos_data *philos_data);
+int		set_data(int argc, char **argv, t_philos_data *run);
+int		create_philos(t_philos_data *philos_data);
+int		thread_philos(t_philos_data *philos_data);
+int		create_forks(t_philos_data *philos_data);
+void	*philo_routine(void *philo_data);
+
 
 #endif //PHILOS_H

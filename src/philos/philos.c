@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 #include "../../include/check.h"
@@ -35,4 +36,15 @@ int	set_data(int argc, char **argv, t_philos_data *run)
 		run->cycles = phi_atoi(argv[5]);
 	}
 	return (0);
+}
+
+void	*philo_routine(void *phi_data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)phi_data;
+	printf("philo %d says hi!\n", philo->number);
+	//get forks
+	//eat or wait
+	//sleep
 }
