@@ -38,13 +38,3 @@ int	set_data(int argc, char **argv, t_philos_data *run)
 	return (0);
 }
 
-void	*philo_routine(void *phi_data)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)phi_data;
-	printf("philo %d says hi!\n", philo->number);
-	//get forks
-	//eat or wait
-	//sleep
-}

@@ -30,8 +30,8 @@ int	main(int argc, char **argv)
 		phi_error("invalid data\n");
 		return (1);
 	}
+	create_forks(run);
 	create_philos(run);
 	thread_philos(run);
-	create_forks(run);
 	return (0);
 }

@@ -23,10 +23,12 @@
  */
 typedef struct s_philo
 {
+	int				start;
 	int				number;
 	pid_t			thread_id;
 	int				last_meal;
 	int				sleep_timer;
+	int 			amount_of_philos;
 	int				eat;
 	int				sleep;
 	int				lifespan;
@@ -52,6 +54,7 @@ typedef struct s_philos_data
 	int				cycles;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_t		*philo_t;
 }t_philos_data;
 
 int		set_data(int argc, char **argv, t_philos_data *run);
@@ -59,6 +62,9 @@ int		create_philos(t_philos_data *philos_data);
 int		thread_philos(t_philos_data *philos_data);
 int		create_forks(t_philos_data *philos_data);
 void	*philo_routine(void *philo_data);
+void	phi_pick_forks(t_philo *philo);
+void	phi_eat(t_philo *philo);
+void	phi_sleep(t_philo *philo);
 
 
 #endif //PHILOS_H

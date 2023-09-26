@@ -12,11 +12,15 @@
 
 #include "../../include/philos.h"
 #include "../../include/utils.h"
+#include <sys/time.h>
 
 int	create_philos(t_philos_data *philos_data)
 {
 	int	count;
+	struct timeval tv;
+	struct timezone tz;
 
+	gettimeofday(&tv,&tz);
 	count = 1;
 	philos_data->philos = ft_calloc((philos_data->amount + 1), \
 	sizeof (t_philo));
@@ -30,9 +34,11 @@ int	create_philos(t_philos_data *philos_data)
 		philos_data->philos[count - 1].eat = philos_data->eat;
 		philos_data->philos[count - 1].sleep = philos_data->sleep;
 		philos_data->philos[count - 1].lifespan = philos_data->lifespan;
+		philos_data->philos[count - 1].amount_of_philos = philos_data->amount;
+		philos_data->philos[count - 1].start = (int)tv.tv_usec;
 		count++;
 	}
-	print_philos(philos_data->philos, philos_data->amount);
+//	print_philos(philos_data->philos, philos_data->amount);
 	return (0);
 	//TODO track fail
 }
