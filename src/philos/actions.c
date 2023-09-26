@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "../../include/philos.h"
 
-void	eat()
+void	eat(t_philo *philo)
 {
-	usleep (*timer);
-
+	usleep (philo->eat);
 }
 
 void	sleep(void *arg)

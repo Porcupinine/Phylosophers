@@ -17,6 +17,7 @@
 int	thread_philos(t_philos_data *philos_data)
 {
 	pthread_t	*philo;
+	t_philo		*aux;
 	int			count;
 
 	count = 0;
@@ -25,7 +26,7 @@ int	thread_philos(t_philos_data *philos_data)
 		return (1);
 	while (count < philos_data->amount)
 	{
-		t_philo* aux = philos_data->philos + count;
+		aux = philos_data->philos + count;
 		if (pthread_create(philo + count, NULL, \
 		&philo_routine, aux) != 0)
 		{

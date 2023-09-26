@@ -51,79 +51,79 @@ build cmake_object_order_depends_target_Phylosophers: phony || CMakeFiles/Phylos
 
 build CMakeFiles/Phylosophers.dir/main.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/main.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/main.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir
 
 build CMakeFiles/Phylosophers.dir/src/philos/philos.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/philos/philos.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/philos.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
 
 build CMakeFiles/Phylosophers.dir/src/check/check_input.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/check/check_input.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/check/check_input.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/check
 
 build CMakeFiles/Phylosophers.dir/src/utils/phi_atoi.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/phi_atoi.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/phi_atoi.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/philos/actions.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/philos/actions.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/actions.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
 
 build CMakeFiles/Phylosophers.dir/src/utils/phi_strlen.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/phi_strlen.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/phi_strlen.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/utils/phi_strncmp.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/phi_strncmp.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/phi_strncmp.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/utils/errors.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/errors.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/errors.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/phi_calloc.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/philos/create_philos.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
 
 build CMakeFiles/Phylosophers.dir/src/utils/prints.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/utils/prints.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/utils/prints.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/utils
 
 build CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/philos/thread_philos.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
 
 build CMakeFiles/Phylosophers.dir/src/philos/mutex.c.o: C_COMPILER__Phylosophers_unscanned_Debug /sam/Codam/Philosofers/src/philos/mutex.c || cmake_object_order_depends_target_Phylosophers
   DEP_FILE = CMakeFiles/Phylosophers.dir/src/philos/mutex.c.o.d
-  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always -fsanitize=address -fsanitize=leak -g3
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   OBJECT_FILE_DIR = CMakeFiles/Phylosophers.dir/src/philos
 
@@ -137,6 +137,7 @@ build CMakeFiles/Phylosophers.dir/src/philos/mutex.c.o: C_COMPILER__Phylosophers
 
 build Phylosophers: C_EXECUTABLE_LINKER__Phylosophers_Debug CMakeFiles/Phylosophers.dir/main.c.o CMakeFiles/Phylosophers.dir/src/philos/philos.c.o CMakeFiles/Phylosophers.dir/src/check/check_input.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_atoi.c.o CMakeFiles/Phylosophers.dir/src/philos/actions.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strlen.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_strncmp.c.o CMakeFiles/Phylosophers.dir/src/utils/errors.c.o CMakeFiles/Phylosophers.dir/src/utils/phi_calloc.c.o CMakeFiles/Phylosophers.dir/src/philos/create_philos.c.o CMakeFiles/Phylosophers.dir/src/utils/prints.c.o CMakeFiles/Phylosophers.dir/src/philos/thread_philos.c.o CMakeFiles/Phylosophers.dir/src/philos/mutex.c.o
   FLAGS = -g
+  LINK_FLAGS = -fsanitize=address -fsanitize=leak
   OBJECT_DIR = CMakeFiles/Phylosophers.dir
   POST_BUILD = :
   PRE_LINK = :

@@ -23,10 +23,16 @@
  */
 typedef struct s_philo
 {
-	int		number;
-	pid_t	thread_id;
-	int		last_meal;
-	int		sleep_timer;
+	int				number;
+	pid_t			thread_id;
+	int				last_meal;
+	int				sleep_timer;
+	int				eat;
+	int				sleep;
+	int				lifespan;
+	int 			cycles;
+	int 			meal_count;
+	pthread_mutex_t	*forks;
 }t_philo;
 
 /**
