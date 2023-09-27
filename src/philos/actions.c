@@ -14,71 +14,92 @@
 #include <pthread.h>
 #include <stdio.h>
 #include "../../include/philos.h"
-#include <time.h>
+#include "../../include/utils.h"
 #include <sys/time.h>
+
+void	phi_wait_for_forks(t_philo *philo)
+{
+//	phi_message(philo, "is waiting to check on forks", philo->start);
+	usleep(5);
+	pthread_mutex_lock(philo->thinking);
+	if (philo->number == philo->amount_of_philos && \
+		philo->forks_state[0] == false && \
+		philo->forks_state[philo->number - 1] == false)
+	{
+		phi_pick_forks(philo);
+	}
+	else if (philo->forks_state[philo->number] == false && \
+	philo->forks_state[philo->number - 1] == false)
+	{
+		phi_pick_forks(philo);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->thinking);
+		usleep(1000);
+	}
+}
 
 void	phi_pick_forks(t_philo *philo)
 {
-	struct timeval tv;
-	struct timezone tz;
-
-	gettimeofday(&tv,&tz);
-//	printf("at %ld philo %d is waiting for forks\n", (tv.tv_usec - philo->start), philo->number);
 	if (philo->number >= philo->amount_of_philos)
+	{
 		pthread_mutex_lock(&philo->forks[0]);
+		philo->forks_state[0] = true;
+		phi_message(philo, "has left fork");
+	}
 	else
+	{
 		pthread_mutex_lock(&philo->forks[philo->number]);
+		philo->forks_state[philo->number] = true;
+		phi_message(philo, "has left fork");
+	}
 	pthread_mutex_lock(&philo->forks[(philo->number - 1)]);
-	gettimeofday(&tv,&tz);
-//	printf("at %ld philo %d has forks\n", (tv.tv_usec - philo->start), philo->number);
+	philo->forks_state[(philo->number - 1)] = true;
+	phi_message(philo, "has right fork");
+	pthread_mutex_unlock(philo->thinking);
+	phi_eat(philo);
 }
 
 void	phi_eat(t_philo *philo)
 {
-	struct timeval tv;
-	struct timezone tz;
-
-	gettimeofday(&tv,&tz);
-	printf("at %ld philo %d starts eating\n", (tv.tv_usec - philo->start), philo->number);
-	usleep (philo->eat);
+	phi_message(philo, "is eating");
+	philo->eat = phi_time();
+	philo->meal_count++;
+	pthread_mutex_lock(&philo->writing);
+	usleep (philo->eat * 1000);
+	pthread_mutex_unlock(&philo->writing);
 	if (philo->number >= philo->amount_of_philos)
+	{
 		pthread_mutex_unlock(&philo->forks[0]);
+		philo->forks_state[0] = false;
+	}
 	else
+	{
 		pthread_mutex_unlock(&philo->forks[philo->number]);
+		philo->forks_state[philo->number] = false;
+	}
 	pthread_mutex_unlock(&philo->forks[(philo->number - 1)]);
-	gettimeofday(&tv,&tz);
-	printf("at %ld philo %d is done eating\n", (tv.tv_usec - philo->start), philo->number);
+	philo->forks_state[philo->number - 1] = false;
+	phi_sleep(philo);
 }
 
 void	phi_sleep(t_philo *philo)
 {
-	struct timeval tv;
-	struct timezone tz;
-
-	gettimeofday(&tv,&tz);
-//	printf("at %ld philo %d started sleep\n", (tv.tv_usec - philo->start), philo->number);
-	usleep (philo->sleep);
-	gettimeofday(&tv,&tz);
-//	printf("at %ld philo %d woke-up\n", (tv.tv_usec - philo->start), philo->number);
+	phi_message(philo, "is sleeping");
+	usleep (philo->sleep * 1000);
+	phi_message(philo, "is thinking");
 }
 
 void	*philo_routine(void *phi_data)
 {
 	t_philo	*philo;
-	struct timeval tv;
-	struct timezone tz;
 
-	int i;
-	gettimeofday(&tv, &tz);
 	philo = (t_philo *) phi_data;
-	philo->start = (int)tv.tv_usec;
-	for (i = 0; i < 5; i++)
+	while (1)
 	{
-		gettimeofday(&tv, &tz);
-//		printf("at %ld philo %d says hi!\n", (tv.tv_usec - philo->start), philo->number);
-		phi_pick_forks(philo);
-		phi_eat(philo);
-		phi_sleep(philo);
+		phi_wait_for_forks(philo);
 	}
+	//TODO kill all process and retunr dead philo
 	return NULL;
 }

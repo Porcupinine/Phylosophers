@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.25)
-project(Phylosophers C)
+project(Philosophers C)
 
 #add_compile_options(-fsanitize=address -fsanitize=leak -g3)
 #add_link_options(-fsanitize=address -fsanitize=leak)
+add_compile_options(-fsanitize=thread -g3)
+add_link_options(-fsanitize=thread)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -12,4 +14,7 @@ add_executable(Phylosophers main.c include/philos.h src/philos/philos.c src/chec
         src/utils/prints.c
         src/philos/thread_philos.c
         src/philos/thread_philos.c
-		src/philos/mutex.c)
+		src/philos/mutex.c
+		src/utils/message.c
+		src/utils/time.c
+		src/philos/check_philos.c)

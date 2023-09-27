@@ -22,6 +22,8 @@ int		phi_strlen(const char *str);
 void	phi_error(char *error);
 void	*ft_calloc(size_t count, size_t size);
 void	print_philos(t_philo *philos, size_t size);
+void	phi_message(t_philo *philo, char *message);
+int		phi_time(void);
 
 
 

@@ -14,6 +14,7 @@
 # define PHILOS_H
 
 # include <sys/types.h>
+#include <stdbool.h>
 
 /**
  * @param number philo tag;
@@ -23,18 +24,22 @@
  */
 typedef struct s_philo
 {
-	int				start;
-	int				number;
-	pid_t			thread_id;
-	int				last_meal;
-	int				sleep_timer;
-	int 			amount_of_philos;
-	int				eat;
-	int				sleep;
-	int				lifespan;
-	int 			cycles;
-	int 			meal_count;
-	pthread_mutex_t	*forks;
+	long				start;
+	int					number;
+	pid_t				thread_id;
+	long				last_meal;
+	long				sleep_timer;
+	int					amount_of_philos;
+	long				eat;
+	long				sleep;
+	long				lifespan;
+	int					cycles;
+	int					meal_count;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		*thinking;
+	pthread_mutex_t		writing;
+	pthread_mutex_t		*message;
+	bool				*forks_state;
 }t_philo;
 
 /**
@@ -47,14 +52,18 @@ typedef struct s_philo
  */
 typedef struct s_philos_data
 {
-	int				amount;
-	int				lifespan;
-	int				eat;
-	int				sleep;
-	int				cycles;
-	t_philo			*philos;
-	pthread_mutex_t	*forks;
-	pthread_t		*philo_t;
+	long 				start;
+	int					amount;
+	long				lifespan;
+	long				eat;
+	long				sleep;
+	int					cycles;
+	t_philo				*philos;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		*thinking;
+	pthread_mutex_t		*message;
+	bool				*forks_state;
+	pthread_t			*philo_t;
 }t_philos_data;
 
 int		set_data(int argc, char **argv, t_philos_data *run);
@@ -65,6 +74,8 @@ void	*philo_routine(void *philo_data);
 void	phi_pick_forks(t_philo *philo);
 void	phi_eat(t_philo *philo);
 void	phi_sleep(t_philo *philo);
+int		dead_or_alive(t_philo *philo);
+
 
 
 #endif //PHILOS_H

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/time.h>
 #include "include/philos.h"
 #include "include/utils.h"
 
@@ -30,6 +31,7 @@ int	main(int argc, char **argv)
 		phi_error("invalid data\n");
 		return (1);
 	}
+	run->start = phi_time();
 	create_forks(run);
 	create_philos(run);
 	thread_philos(run);

@@ -23,9 +23,22 @@ int	create_forks(t_philos_data *philos_data)
 	sizeof (pthread_mutex_t));
 	if (philos_data->forks == NULL)
 		return (1);
+	philos_data->forks_state = ft_calloc(philos_data->amount, \
+	sizeof (bool));
+	if (philos_data->forks_state == NULL)
+		return (1);
+	philos_data->thinking = ft_calloc(1, sizeof (pthread_mutex_t));
+	if (philos_data->thinking == NULL)
+		return (1);
+	pthread_mutex_init(philos_data->thinking, NULL);
+	philos_data->message = ft_calloc(1, sizeof (pthread_mutex_t));
+	if (philos_data->message == NULL)
+		return (1);
+	pthread_mutex_init(philos_data->message, NULL);
 	while (count < philos_data->amount)
 	{
 		pthread_mutex_init(&philos_data->forks[count], NULL);
+		philos_data->forks_state[count] = false;
 		count++;
 	}
 	return (0);
