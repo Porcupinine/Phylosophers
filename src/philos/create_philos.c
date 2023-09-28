@@ -34,6 +34,7 @@ static void	set_philo(t_philos_data *philos_data, struct timeval *tv)
 		philos_data->philos[count - 1].thinking = philos_data->thinking;
 		pthread_mutex_init(&philos_data->philos[count - 1].writing, NULL);
 		philos_data->philos[count - 1].message = philos_data->message;
+		philos_data->philos[count - 1].funeral = &philos_data->funeral;
 		count++;
 	}
 }

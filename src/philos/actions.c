@@ -19,7 +19,6 @@
 
 void	phi_wait_for_forks(t_philo *philo)
 {
-//	phi_message(philo, "is waiting to check on forks", philo->start);
 	usleep(5);
 	pthread_mutex_lock(philo->thinking);
 	if (philo->number == philo->amount_of_philos && \
@@ -94,8 +93,9 @@ void	*philo_routine(void *phi_data)
 	t_philo	*philo;
 
 	philo = (t_philo *) phi_data;
-	while (dead_or_alive(philo) != 1)
+	while (*philo->funeral == false)
 	{
+		dead_or_alive(philo);
 		phi_wait_for_forks(philo);
 	}
 	//TODO kill all process and retunr dead philo

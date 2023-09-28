@@ -14,7 +14,7 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 
-int	dead_or_alive(t_philo *philo)
+void	dead_or_alive(t_philo *philo)
 {
 	int	current_time;
 
@@ -22,9 +22,8 @@ int	dead_or_alive(t_philo *philo)
 	pthread_mutex_lock(&philo->writing);
 	if ((current_time - philo->last_meal) > philo->lifespan)
 	{
+		philo->funeral = true;
 		phi_message(philo, "is dead");
-		return (1);
 	}
 	pthread_mutex_unlock(&philo->writing);
-	return (0);
 }
