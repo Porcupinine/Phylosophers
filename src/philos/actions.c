@@ -46,17 +46,15 @@ void	phi_pick_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->forks[0]);
 		philo->forks_state[0] = true;
-		phi_message(philo, "has left fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->forks[philo->number]);
 		philo->forks_state[philo->number] = true;
-		phi_message(philo, "has left fork");
 	}
 	pthread_mutex_lock(&philo->forks[(philo->number - 1)]);
 	philo->forks_state[(philo->number - 1)] = true;
-	phi_message(philo, "has right fork");
+	phi_message(philo, "has forks");
 	pthread_mutex_unlock(philo->thinking);
 	phi_eat(philo);
 }
@@ -64,7 +62,7 @@ void	phi_pick_forks(t_philo *philo)
 void	phi_eat(t_philo *philo)
 {
 	phi_message(philo, "is eating");
-	philo->eat = phi_time();
+	philo->last_meal = phi_time();
 	philo->meal_count++;
 	pthread_mutex_lock(&philo->writing);
 	usleep (philo->eat * 1000);
@@ -96,7 +94,7 @@ void	*philo_routine(void *phi_data)
 	t_philo	*philo;
 
 	philo = (t_philo *) phi_data;
-	while (1)
+	while (dead_or_alive(philo) != 1)
 	{
 		phi_wait_for_forks(philo);
 	}

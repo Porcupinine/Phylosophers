@@ -20,7 +20,7 @@ int	dead_or_alive(t_philo *philo)
 
 	current_time = phi_time();
 	pthread_mutex_lock(&philo->writing);
-	if ((current_time - philo->eat) > philo->lifespan)
+	if ((current_time - philo->last_meal) > philo->lifespan)
 	{
 		phi_message(philo, "is dead");
 		return (1);

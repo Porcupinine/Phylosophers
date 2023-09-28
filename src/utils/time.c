@@ -13,12 +13,11 @@
 #include <sys/time.h>
 #include <stdlib.h>
 
-int	phi_time(void)
+long	phi_time(void)
 {
 	long			time;
 	struct timeval	tv;
 
-	time = 0;
 	if (gettimeofday(&tv, NULL) == -1)
 		return (-1);
 	time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
