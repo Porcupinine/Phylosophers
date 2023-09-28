@@ -35,6 +35,10 @@ int	create_forks(t_philos_data *philos_data)
 	if (philos_data->message == NULL)
 		return (1);
 	pthread_mutex_init(philos_data->message, NULL);
+	philos_data->end = ft_calloc(1, sizeof (pthread_mutex_t));
+	if (philos_data->end == NULL)
+		return (1);
+	pthread_mutex_init(philos_data->end, NULL);
 	while (count < philos_data->amount)
 	{
 		pthread_mutex_init(&philos_data->forks[count], NULL);

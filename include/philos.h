@@ -39,6 +39,7 @@ typedef struct s_philo
 	pthread_mutex_t		*thinking;
 	pthread_mutex_t		writing;
 	pthread_mutex_t		*message;
+	pthread_mutex_t		*end;
 	bool				*forks_state;
 	bool				*funeral;
 }t_philo;
@@ -63,6 +64,7 @@ typedef struct s_philos_data
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*thinking;
 	pthread_mutex_t		*message;
+	pthread_mutex_t		*end;
 	bool				*forks_state;
 	bool				funeral;
 	pthread_t			*philo_t;
@@ -76,7 +78,7 @@ void	*philo_routine(void *philo_data);
 void	phi_pick_forks(t_philo *philo);
 void	phi_eat(t_philo *philo);
 void	phi_sleep(t_philo *philo);
-void	dead_or_alive(t_philo *philo);
+bool	dead_or_alive(t_philo *philo);
 
 
 

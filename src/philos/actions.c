@@ -19,6 +19,10 @@
 
 void	phi_wait_for_forks(t_philo *philo)
 {
+	pthread_mutex_lock(philo->end);
+	if (*philo->funeral == true)
+		return ;
+	pthread_mutex_unlock(philo->end);
 	usleep(5);
 	pthread_mutex_lock(philo->thinking);
 	if (philo->number == philo->amount_of_philos && \
@@ -41,6 +45,10 @@ void	phi_wait_for_forks(t_philo *philo)
 
 void	phi_pick_forks(t_philo *philo)
 {
+	pthread_mutex_lock(philo->end);
+	if (*philo->funeral == true)
+		return ;
+	pthread_mutex_unlock(philo->end);
 	if (philo->number >= philo->amount_of_philos)
 	{
 		pthread_mutex_lock(&philo->forks[0]);
@@ -60,6 +68,10 @@ void	phi_pick_forks(t_philo *philo)
 
 void	phi_eat(t_philo *philo)
 {
+	pthread_mutex_lock(philo->end);
+	if (*philo->funeral == true)
+		return ;
+	pthread_mutex_unlock(philo->end);
 	phi_message(philo, "is eating");
 	philo->last_meal = phi_time();
 	philo->meal_count++;
@@ -83,8 +95,16 @@ void	phi_eat(t_philo *philo)
 
 void	phi_sleep(t_philo *philo)
 {
+	pthread_mutex_lock(philo->end);
+	if (*philo->funeral == true)
+		return ;
+	pthread_mutex_unlock(philo->end);
 	phi_message(philo, "is sleeping");
 	usleep (philo->sleep * 1000);
+	pthread_mutex_lock(philo->end);
+	if (*philo->funeral == true)
+		return ;
+	pthread_mutex_unlock(philo->end);
 	phi_message(philo, "is thinking");
 }
 
@@ -95,7 +115,8 @@ void	*philo_routine(void *phi_data)
 	philo = (t_philo *) phi_data;
 	while (*philo->funeral == false)
 	{
-		dead_or_alive(philo);
+		if (dead_or_alive(philo) == true)
+			break ;
 		phi_wait_for_forks(philo);
 	}
 	//TODO kill all process and retunr dead philo
