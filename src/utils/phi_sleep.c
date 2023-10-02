@@ -6,7 +6,7 @@
 
 void	phi_usleep(t_philo *philo, long time)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	pthread_mutex_lock(&philo->writing);
@@ -16,7 +16,7 @@ void	phi_usleep(t_philo *philo, long time)
 		{
 			unlock_forks(philo);
 			pthread_mutex_unlock(&philo->writing);
-			return;
+			return ;
 		}
 		usleep(time * 10);
 		count++;

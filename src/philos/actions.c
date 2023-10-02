@@ -19,25 +19,23 @@
 
 void	phi_wait_for_forks(t_philo *philo)
 {
+	size_t aux = philo->number % philo->amount_of_philos;
 	if (check_for_dead(philo) == true)
 		return ;
-	pthread_mutex_lock(philo->thinking);
-	if (philo->number == philo->amount_of_philos && \
-		philo->forks_state[0] == false && \
-		philo->forks_state[philo->number - 1] == false)
-	{
-		phi_pick_forks(philo);
-	}
-	else if (philo->number < philo->amount_of_philos && \
-	philo->forks_state[philo->number] == false && \
-	philo->forks_state[philo->number - 1] == false)
-	{
-		phi_pick_forks(philo);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->thinking);
-		usleep(philo->eat * 1000);
+
+	while(true) {
+		pthread_mutex_lock(philo->thinking);
+		if (philo->forks_state[aux] == false && \
+            philo->forks_state[philo->number - 1] == false) {
+			phi_pick_forks(philo);
+			philo->forks_state[aux] = true;
+			philo->forks_state[philo->number - 1] = true;
+			pthread_mutex_unlock(philo->thinking);
+			break;
+		} else {
+			pthread_mutex_unlock(philo->thinking);
+			usleep(100);
+		}
 	}
 }
 
@@ -49,8 +47,8 @@ void	phi_pick_forks(t_philo *philo)
 		return ;
 	}
 	lock_forks(philo);
+
 	phi_message(philo, "has forks");
-	phi_eat(philo);
 }
 
 void	phi_eat(t_philo *philo)
@@ -60,14 +58,13 @@ void	phi_eat(t_philo *philo)
 		unlock_forks(philo);
 		return ;
 	}
-	pthread_mutex_lock(philo->thinking);
+//	pthread_mutex_lock(&philo->writing);
 	philo->last_meal = phi_time();
-	pthread_mutex_unlock(philo->thinking);
+//	pthread_mutex_unlock(&philo->writing);
 	phi_message(philo, "is eating");
 	philo->meal_count++;
-	phi_usleep(philo,(philo->eat));
-	unlock_forks(philo);
-	phi_sleep(philo);
+	usleep(philo->eat*1000);
+	//phi_usleep(philo,(philo->eat));
 }
 
 void	phi_sleep(t_philo *philo)
@@ -75,7 +72,7 @@ void	phi_sleep(t_philo *philo)
 	if (check_for_dead(philo) == true)
 		return ;
 	phi_message(philo, "is sleeping");
-	phi_usleep (philo, philo->sleep);
+	usleep (philo->sleep * 1000);
 	if (check_for_dead(philo) == true)
 		return ;
 	phi_message(philo, "is thinking");
@@ -92,5 +89,8 @@ void	*philo_routine(void *phi_data)
 		if (dead_or_alive(philo) == true)
 			break ;
 		phi_wait_for_forks(philo);
+		phi_eat(philo);
+		unlock_forks(philo);
+		phi_sleep(philo);
 	}
 }

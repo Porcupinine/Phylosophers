@@ -12,6 +12,7 @@
 
 #include <pthread.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 
@@ -74,33 +75,27 @@ void	destroy_mutexes(t_philos_data *philos_data)
 
 void	lock_forks(t_philo *philo)
 {
-	if (philo->number >= philo->amount_of_philos)
-	{
-		philo->forks_state[0] = true;
-		pthread_mutex_lock(&philo->forks[0]);
+	size_t	aux = philo->number % philo->amount_of_philos;
+	if (aux < philo->number) {
+		pthread_mutex_lock(&(philo->forks[aux]));
+		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
+	} else {
+		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
+		pthread_mutex_lock(&(philo->forks[aux]));
 	}
-	else
-	{
-		philo->forks_state[philo->number] = true;
-		pthread_mutex_lock(&philo->forks[philo->number]);
-	}
-	philo->forks_state[(philo->number - 1)] = true;
-	pthread_mutex_lock(&philo->forks[(philo->number - 1)]);
-	pthread_mutex_unlock(philo->thinking);
 }
 
 void	unlock_forks(t_philo *philo)
 {
-	if (philo->number >= philo->amount_of_philos)
-		pthread_mutex_unlock(&philo->forks[0]);
-	else
-		pthread_mutex_unlock(&philo->forks[philo->number]);
-	pthread_mutex_unlock(&philo->forks[(philo->number - 1)]);
+	size_t	aux;
+
+	aux = philo->number % philo->amount_of_philos;
+	pthread_mutex_unlock(&(philo->forks[aux]));
+	pthread_mutex_unlock(&(philo->forks[philo->number - 1]));
+
+	// TODO check philo dead
 	pthread_mutex_lock(philo->thinking);
-	if (philo->number >= philo->amount_of_philos)
-		philo->forks_state[0] = false;
-	else
-		philo->forks_state[philo->number] = false;
+	philo->forks_state[aux] = false;
 	philo->forks_state[philo->number - 1] = false;
 	pthread_mutex_unlock(philo->thinking);
 }
