@@ -10,7 +10,7 @@ void	phi_usleep(t_philo *philo, long time)
 
 	count = 0;
 	pthread_mutex_lock(&philo->writing);
-	while (count < 10)
+	while (count < 100)
 	{
 		if (check_for_dead(philo) == true)
 		{
@@ -18,7 +18,7 @@ void	phi_usleep(t_philo *philo, long time)
 			pthread_mutex_unlock(&philo->writing);
 			return;
 		}
-		usleep(time * 100);
+		usleep(time * 10);
 		count++;
 	}
 	pthread_mutex_unlock(&philo->writing);

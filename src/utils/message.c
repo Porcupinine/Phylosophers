@@ -19,6 +19,6 @@
 void	phi_message(t_philo *philo, char *message)
 {
 	pthread_mutex_lock(philo->message);
-	printf("%ld %d %s\n", phi_time() - philo->start, philo->number, message);
+	printf("%ld %d %s\n", philo->last_meal, philo->number, message);
 	pthread_mutex_unlock(philo->message);
 }

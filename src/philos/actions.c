@@ -60,8 +60,10 @@ void	phi_eat(t_philo *philo)
 		unlock_forks(philo);
 		return ;
 	}
-	phi_message(philo, "is eating");
+	pthread_mutex_lock(philo->thinking);
 	philo->last_meal = phi_time();
+	pthread_mutex_unlock(philo->thinking);
+	phi_message(philo, "is eating");
 	philo->meal_count++;
 	phi_usleep(philo,(philo->eat));
 	unlock_forks(philo);
