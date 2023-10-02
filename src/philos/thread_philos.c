@@ -52,4 +52,4 @@ int	thread_philos(t_philos_data *philos_data)
 		return (1);
 	return (0);
 }
-//TODO what to do if we fail?
+//TODO what to do if we fail? create, check and store thread id

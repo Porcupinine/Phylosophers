@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/time.h>
+#include <stdio.h>
 #include "include/philos.h"
 #include "include/utils.h"
 
@@ -32,8 +33,13 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	run->start = phi_time();
-	create_forks(run);
+	init_mutexes(run);
 	create_philos(run);
 	thread_philos(run);
+	if (run->funeral == true)
+		printf("\nSory, someone died, we must attend a philo funeral\n");
+	destroy_mutexes(run);
+	free_data(run);
+	free(run);
 	return (0);
 }

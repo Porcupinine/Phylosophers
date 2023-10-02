@@ -15,7 +15,7 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-static void	set_philo(t_philos_data *philos_data, struct timeval *tv)
+static void	set_philo(t_philos_data *philos_data)
 {
 	int	count;
 
@@ -42,17 +42,12 @@ static void	set_philo(t_philos_data *philos_data, struct timeval *tv)
 
 int	create_philos(t_philos_data *philos_data)
 {
-	int				count;
-	struct timeval	tv;
-	struct timezone	tz;
-
-	gettimeofday(&tv, &tz);
-	count = 1;
 	philos_data->philos = ft_calloc((philos_data->amount + 1), \
 	sizeof (t_philo));
 	if (philos_data->philos == NULL)
 		return (1);
-	set_philo(philos_data, &tv);
+	philos_data->funeral = false;
+	set_philo(philos_data);
 //	print_philos(philos_data->philos, philos_data->amount);
 	return (0);
 	//TODO track fail
