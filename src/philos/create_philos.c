@@ -48,7 +48,6 @@ int	create_philos(t_philos_data *philos_data)
 		return (1);
 	philos_data->funeral = false;
 	set_philo(philos_data);
-//	print_philos(philos_data->philos, philos_data->amount);
 	return (0);
 	//TODO track fail
 }

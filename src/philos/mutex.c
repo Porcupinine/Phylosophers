@@ -86,6 +86,7 @@ void	lock_forks(t_philo *philo)
 	}
 	philo->forks_state[(philo->number - 1)] = true;
 	pthread_mutex_lock(&philo->forks[(philo->number - 1)]);
+	pthread_mutex_unlock(philo->thinking);
 }
 
 void	unlock_forks(t_philo *philo)
@@ -103,3 +104,28 @@ void	unlock_forks(t_philo *philo)
 	philo->forks_state[philo->number - 1] = false;
 	pthread_mutex_unlock(philo->thinking);
 }
+
+//void	lock_forks(t_philo *philo)
+//{
+//	if (philo->number >= philo->amount_of_philos)
+//	{
+//		philo->forks_state[0] = true;
+//	}
+//	else
+//	{
+//		philo->forks_state[philo->number] = true;
+//	}
+//	philo->forks_state[(philo->number - 1)] = true;
+//	pthread_mutex_unlock(philo->thinking);
+//}
+//
+//void	unlock_forks(t_philo *philo)
+//{
+//	pthread_mutex_lock(philo->thinking);
+//	if (philo->number >= philo->amount_of_philos)
+//		philo->forks_state[0] = false;
+//	else
+//		philo->forks_state[philo->number] = false;
+//	philo->forks_state[philo->number - 1] = false;
+//	pthread_mutex_unlock(philo->thinking);
+//}

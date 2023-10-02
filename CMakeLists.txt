@@ -18,4 +18,5 @@ add_executable(Phylosophers main.c include/philos.h src/philos/philos.c src/chec
 		src/utils/message.c
 		src/utils/time.c
 		src/philos/check_philos.c
-		src/philos/free_philos.c)
+		src/philos/free_philos.c
+		src/utils/phi_sleep.c)

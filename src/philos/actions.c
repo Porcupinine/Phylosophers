@@ -50,7 +50,6 @@ void	phi_pick_forks(t_philo *philo)
 	}
 	lock_forks(philo);
 	phi_message(philo, "has forks");
-	pthread_mutex_unlock(philo->thinking);
 	phi_eat(philo);
 }
 
@@ -64,9 +63,7 @@ void	phi_eat(t_philo *philo)
 	phi_message(philo, "is eating");
 	philo->last_meal = phi_time();
 	philo->meal_count++;
-	pthread_mutex_lock(&philo->writing);
-	usleep (philo->eat * 1000);
-	pthread_mutex_unlock(&philo->writing);
+	phi_usleep(philo,(philo->eat));
 	unlock_forks(philo);
 	phi_sleep(philo);
 }
@@ -76,7 +73,7 @@ void	phi_sleep(t_philo *philo)
 	if (check_for_dead(philo) == true)
 		return ;
 	phi_message(philo, "is sleeping");
-	usleep (philo->sleep * 1000);
+	phi_usleep (philo, philo->sleep);
 	if (check_for_dead(philo) == true)
 		return ;
 	phi_message(philo, "is thinking");
@@ -95,4 +92,3 @@ void	*philo_routine(void *phi_data)
 		phi_wait_for_forks(philo);
 	}
 }
-//TODO changing from true to false while anothher philo lookes for forks

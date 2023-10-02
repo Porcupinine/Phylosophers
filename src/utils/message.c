@@ -19,7 +19,6 @@
 void	phi_message(t_philo *philo, char *message)
 {
 	pthread_mutex_lock(philo->message);
-//	printf("start: %ld   current: %d\n", philo->start, phi_time());
-	printf("%ldms philo %d %s\n", phi_time() - philo->start, philo->number, message);
+	printf("%ld %d %s\n", phi_time() - philo->start, philo->number, message);
 	pthread_mutex_unlock(philo->message);
 }

@@ -41,6 +41,7 @@ void	free_data(t_philos_data *philos_data)
 		pthread_mutex_destroy(&philos_data->philos[count].writing);
 		count++;
 	}
+	free(philos_data->cycles);
 	free(philos_data->forks_state);
 	free(philos_data->philos);
 	free(philos_data->philo_t);
