@@ -24,7 +24,7 @@ static int	deal_isspace_issign(char *a, int *count, int *count_m, int *count_p)
 {
 	while (a[*count] == ' ' || a[*count] == '\t' \
 	|| a[*count] == '\r' || a[*count] == '\n' \
-	| a[*count] == '\v' || a[*count] == '\f')
+	|| a[*count] == '\v' || a[*count] == '\f')
 		(*count)++;
 	while (a[*count] == '-')
 	{

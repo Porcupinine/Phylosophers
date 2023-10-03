@@ -86,5 +86,6 @@ void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
 bool	check_for_dead(t_philo *philo);
 bool	done_meals(t_philo *philo);
+void	check_thread(t_philos_data *philos_data);
 
 #endif //PHILOS_H

@@ -13,6 +13,7 @@
 #include <pthread.h>
 #include "../../include/philos.h"
 #include "../../include/utils.h"
+#include <unistd.h>
 
 int	join_philos(t_philos_data *philos_data)
 {
@@ -48,6 +49,7 @@ int	thread_philos(t_philos_data *philos_data)
 		}
 		count++;
 	}
+	check_thread(philos_data);
 	if (join_philos(philos_data) == 1)
 		return (1);
 	return (0);

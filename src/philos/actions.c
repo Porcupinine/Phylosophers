@@ -19,78 +19,64 @@
 
 void	phi_wait_for_forks(t_philo *philo)
 {
-	size_t aux = philo->number % philo->amount_of_philos;
-	if (check_for_dead(philo) == true)
-		return ;
+	size_t	aux;
 
-	while(true) {
+	aux = philo->number % philo->amount_of_philos;
+	while (true)
+	{
 		pthread_mutex_lock(philo->thinking);
+
 		if (philo->forks_state[aux] == false && \
-            philo->forks_state[philo->number - 1] == false) {
-			phi_pick_forks(philo);
+			philo->forks_state[philo->number - 1] == false)
+		{
 			philo->forks_state[aux] = true;
 			philo->forks_state[philo->number - 1] = true;
 			pthread_mutex_unlock(philo->thinking);
-			break;
-		} else {
+			phi_pick_forks(philo);
+			break ;
+		}
+		else
+		{
 			pthread_mutex_unlock(philo->thinking);
-			usleep(100);
+			usleep(philo->number % 20);
 		}
 	}
 }
 
 void	phi_pick_forks(t_philo *philo)
 {
-	if (check_for_dead(philo) == true)
-	{
-		pthread_mutex_unlock(philo->thinking);
-		return ;
-	}
 	lock_forks(philo);
-
 	phi_message(philo, "has forks");
 }
 
 void	phi_eat(t_philo *philo)
 {
-	if (check_for_dead(philo) == true)
-	{
-		unlock_forks(philo);
-		return ;
-	}
-//	pthread_mutex_lock(&philo->writing);
+	pthread_mutex_lock(philo->end);
 	philo->last_meal = phi_time();
-//	pthread_mutex_unlock(&philo->writing);
-	phi_message(philo, "is eating");
 	philo->meal_count++;
-	usleep(philo->eat*1000);
-	//phi_usleep(philo,(philo->eat));
+	pthread_mutex_unlock(philo->end);
+	phi_message(philo, "is eating");
+	usleep(philo->eat * 1000);
 }
 
 void	phi_sleep(t_philo *philo)
 {
-	if (check_for_dead(philo) == true)
-		return ;
 	phi_message(philo, "is sleeping");
 	usleep (philo->sleep * 1000);
-	if (check_for_dead(philo) == true)
-		return ;
 	phi_message(philo, "is thinking");
 }
 
 void	*philo_routine(void *phi_data)
 {
 	t_philo	*philo;
-	bool	x;
 
 	philo = (t_philo *) phi_data;
 	while (check_for_dead(philo) == false && done_meals(philo) == false)
 	{
-		if (dead_or_alive(philo) == true)
-			break ;
 		phi_wait_for_forks(philo);
 		phi_eat(philo);
 		unlock_forks(philo);
 		phi_sleep(philo);
 	}
+	return (NULL);
 }

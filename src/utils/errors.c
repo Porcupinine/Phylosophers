@@ -18,5 +18,6 @@ void	phi_error(char *error)
 	int	len;
 
 	len = phi_strlen(error);
-	write(2, error, len);
+	if (write(2, error, len) == -1)
+		return ;
 }

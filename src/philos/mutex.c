@@ -75,11 +75,16 @@ void	destroy_mutexes(t_philos_data *philos_data)
 
 void	lock_forks(t_philo *philo)
 {
-	size_t	aux = philo->number % philo->amount_of_philos;
-	if (aux < philo->number) {
+	int	aux;
+
+	aux = philo->number % philo->amount_of_philos;
+	if (aux < philo->number)
+	{
 		pthread_mutex_lock(&(philo->forks[aux]));
 		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
-	} else {
+	}
+	else
+	{
 		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
 		pthread_mutex_lock(&(philo->forks[aux]));
 	}

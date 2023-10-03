@@ -21,4 +21,5 @@ int	phi_strncmp(const char *str1, const char *str2, int len)
 			return (1);
 		count++;
 	}
+	return (0);
 }
