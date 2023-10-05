@@ -26,7 +26,7 @@ bool	dead_or_alive(t_philo *philo)
 	{
 		*philo->funeral = true;
 		pthread_mutex_lock(philo->message);
-		printf("current time: %ld ---- last meal: %ld\n%ld %d is dead\n",current_time, philo->last_meal,  phi_time() - philo->start, philo->number);
+		printf("%ld %d is dead\n", phi_time() - philo->start, philo->number);
 		pthread_mutex_unlock(philo->message);
 		pthread_mutex_unlock(philo->end);
 		return (true);
@@ -64,6 +64,7 @@ void	check_thread(t_philos_data *philos_data)
 	while (ok == false)
 	{
 		count = 0;
+//		pthread_mutex_lock(philos_data->end);
 		while (count < philos_data->amount)
 		{
 			ok = dead_or_alive(&philos_data->philos[count]);
@@ -71,6 +72,7 @@ void	check_thread(t_philos_data *philos_data)
 				break ;
 			count++;
 		}
-		usleep(9000);
+//		pthread_mutex_unlock(philos_data->end);
+		usleep(100);
 	}
 }

@@ -17,36 +17,65 @@
 #include "../../include/utils.h"
 #include <sys/time.h>
 
-void	phi_wait_for_forks(t_philo *philo)
+static bool	grab_forks(t_philo *philo)
 {
-	size_t	aux;
+	size_t	left;
+	size_t	right;
 
-	aux = philo->number % philo->amount_of_philos;
-	while (true)
+	left = philo->number - 1;
+	right = philo->number % philo->amount_of_philos;
+	pthread_mutex_lock(&(philo->forks[left]));
+	if (!philo->forks_state[left])
 	{
-		pthread_mutex_lock(philo->thinking);
-
-		if (philo->forks_state[aux] == false && \
-			philo->forks_state[philo->number - 1] == false)
+		pthread_mutex_lock(&(philo->forks[right]));
+		if (!philo->forks_state[right])
 		{
-			philo->forks_state[aux] = true;
-			philo->forks_state[philo->number - 1] = true;
-			pthread_mutex_unlock(philo->thinking);
-			phi_pick_forks(philo);
-			break ;
+			philo->forks_state[left] = true;
+			philo->forks_state[right] = true;
+			phi_message(philo, "has forks");
+			return (true);
 		}
-		else
-		{
-			pthread_mutex_unlock(philo->thinking);
-			usleep(philo->number % 20);
-		}
+		pthread_mutex_unlock(&(philo->forks[right]));
 	}
+	pthread_mutex_unlock(&(philo->forks[left]));
+	return (false);
 }
 
-void	phi_pick_forks(t_philo *philo)
+void	phi_wait_for_forks(t_philo *philo)
 {
-	lock_forks(philo);
-	phi_message(philo, "has forks");
+	size_t	left;
+	size_t	right;
+
+	left = philo->number - 1;
+	right = philo->number % philo->amount_of_philos;
+//	size_t	left, right;
+//	left = philo->number - 1;
+//	right = philo->number % philo->amount_of_philos;
+//	bool pegou_garfo = false;
+	while (true)
+	{
+//		pthread_mutex_lock(&(philo->forks[left]));
+//		if (!philo->forks_state[left])
+//		{
+//			pthread_mutex_lock(&(philo->forks[right]));
+//			if(!philo->forks_state[right])
+//			{
+//				philo->forks_state[left] = philo->forks_state[right] = true;
+//				pegou_garfo = true;
+//				phi_message(philo, "has forks");
+//			}
+//			pthread_mutex_unlock(&(philo->forks[right]));
+//		}
+//		pthread_mutex_unlock(&(philo->forks[left]));
+		if (grab_forks(philo) == true)
+		{
+			pthread_mutex_unlock(&(philo->forks[right]));
+			pthread_mutex_unlock(&(philo->forks[left]));
+			break ;
+		}
+		usleep(10);
+	}
+
 }
 
 void	phi_eat(t_philo *philo)

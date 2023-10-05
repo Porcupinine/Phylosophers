@@ -73,59 +73,19 @@ void	destroy_mutexes(t_philos_data *philos_data)
 	free (philos_data->forks);
 }
 
-void	lock_forks(t_philo *philo)
-{
-	int	aux;
-
-	aux = philo->number % philo->amount_of_philos;
-	if (aux < philo->number)
-	{
-		pthread_mutex_lock(&(philo->forks[aux]));
-		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
-	}
-	else
-	{
-		pthread_mutex_lock(&(philo->forks[(philo->number - 1)]));
-		pthread_mutex_lock(&(philo->forks[aux]));
-	}
-}
-
 void	unlock_forks(t_philo *philo)
 {
-	size_t	aux;
+	size_t	left, right;
 
-	aux = philo->number % philo->amount_of_philos;
-	pthread_mutex_unlock(&(philo->forks[aux]));
-	pthread_mutex_unlock(&(philo->forks[philo->number - 1]));
+	left = philo->number - 1;
+	right = philo->number % philo->amount_of_philos;
 
-	// TODO check philo dead
-	pthread_mutex_lock(philo->thinking);
-	philo->forks_state[aux] = false;
-	philo->forks_state[philo->number - 1] = false;
-	pthread_mutex_unlock(philo->thinking);
+//	phi_message(philo, "will drop forks");
+	pthread_mutex_lock(&(philo->forks[left]));
+	pthread_mutex_lock(&(philo->forks[right]));
+	philo->forks_state[left] = false;
+	philo->forks_state[right] = false;
+	pthread_mutex_unlock(&(philo->forks[right]));
+	pthread_mutex_unlock(&(philo->forks[left]));
+//	phi_message(philo, "dropped forks");
 }
-
-//void	lock_forks(t_philo *philo)
-//{
-//	if (philo->number >= philo->amount_of_philos)
-//	{
-//		philo->forks_state[0] = true;
-//	}
-//	else
-//	{
-//		philo->forks_state[philo->number] = true;
-//	}
-//	philo->forks_state[(philo->number - 1)] = true;
-//	pthread_mutex_unlock(philo->thinking);
-//}
-//
-//void	unlock_forks(t_philo *philo)
-//{
-//	pthread_mutex_lock(philo->thinking);
-//	if (philo->number >= philo->amount_of_philos)
-//		philo->forks_state[0] = false;
-//	else
-//		philo->forks_state[philo->number] = false;
-//	philo->forks_state[philo->number - 1] = false;
-//	pthread_mutex_unlock(philo->thinking);
-//}

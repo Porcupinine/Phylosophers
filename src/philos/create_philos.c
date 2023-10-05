@@ -36,6 +36,7 @@ static void	set_philo(t_philos_data *philos_data)
 		philos_data->philos[count - 1].message = philos_data->message;
 		philos_data->philos[count - 1].funeral = &philos_data->funeral;
 		philos_data->philos[count - 1].end = philos_data->end;
+		philos_data->philos[count - 1].last_meal = philos_data->start;
 		count++;
 	}
 }
