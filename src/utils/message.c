@@ -27,3 +27,15 @@ void	phi_message(t_philo *philo, char *message)
 	}
 	pthread_mutex_unlock(philo->end);
 }
+
+void	phi_food_message(t_philo *philo, char *message)
+{
+	pthread_mutex_lock(philo->end);
+	if (!*philo->funeral)
+	{
+		pthread_mutex_lock(philo->message);
+		printf("Meatime%ld %d %s\n", philo->last_meal - philo->start, philo->number, message);
+		pthread_mutex_unlock(philo->message);
+	}
+	pthread_mutex_unlock(philo->end);
+}

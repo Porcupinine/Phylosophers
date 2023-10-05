@@ -48,25 +48,8 @@ void	phi_wait_for_forks(t_philo *philo)
 
 	left = philo->number - 1;
 	right = philo->number % philo->amount_of_philos;
-//	size_t	left, right;
-//	left = philo->number - 1;
-//	right = philo->number % philo->amount_of_philos;
-//	bool pegou_garfo = false;
 	while (true)
 	{
-//		pthread_mutex_lock(&(philo->forks[left]));
-//		if (!philo->forks_state[left])
-//		{
-//			pthread_mutex_lock(&(philo->forks[right]));
-//			if(!philo->forks_state[right])
-//			{
-//				philo->forks_state[left] = philo->forks_state[right] = true;
-//				pegou_garfo = true;
-//				phi_message(philo, "has forks");
-//			}
-//			pthread_mutex_unlock(&(philo->forks[right]));
-//		}
-//		pthread_mutex_unlock(&(philo->forks[left]));
 		if (grab_forks(philo) == true)
 		{
 			pthread_mutex_unlock(&(philo->forks[right]));
@@ -75,7 +58,6 @@ void	phi_wait_for_forks(t_philo *philo)
 		}
 		usleep(10);
 	}
-
 }
 
 void	phi_eat(t_philo *philo)
