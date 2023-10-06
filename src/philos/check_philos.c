@@ -47,10 +47,13 @@ bool	check_for_dead(t_philo *philo)
 
 bool	done_meals(t_philo *philo)
 {
+	pthread_mutex_lock(philo->end);
 	if (philo->cycles == NULL || philo->meal_count != *philo->cycles)
 	{
+		pthread_mutex_unlock(philo->end);
 		return (false);
 	}
+	pthread_mutex_unlock(philo->end);
 	return (true);
 }
 

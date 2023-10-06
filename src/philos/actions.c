@@ -32,7 +32,8 @@ static bool	grab_forks(t_philo *philo)
 		{
 			philo->forks_state[left] = true;
 			philo->forks_state[right] = true;
-			phi_message(philo, "has forks");
+			phi_message(philo, " has taken a fork");
+			phi_message(philo, " has taken a fork");
 			return (true);
 		}
 		pthread_mutex_unlock(&(philo->forks[right]));
@@ -67,13 +68,13 @@ void	phi_eat(t_philo *philo)
 	philo->meal_count++;
 	pthread_mutex_unlock(philo->end);
 	phi_message(philo, "is eating");
-	usleep(philo->eat * 1000);
+	phi_usleep(philo, philo->eat);
 }
 
 void	phi_sleep(t_philo *philo)
 {
 	phi_message(philo, "is sleeping");
-	usleep (philo->sleep * 1000);
+	phi_usleep (philo, philo->sleep);
 	phi_message(philo, "is thinking");
 }
 
