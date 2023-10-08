@@ -22,7 +22,8 @@ bool	dead_or_alive(t_philo *philo)
 
 	current_time = phi_time();
 	pthread_mutex_lock(philo->end);
-	if ((current_time - philo->last_meal) > philo->lifespan)
+	if ((current_time - philo->last_meal) > philo->lifespan && \
+	philo->done_eating == false)
 	{
 		*philo->funeral = true;
 		pthread_mutex_lock(philo->message);
@@ -53,6 +54,7 @@ bool	done_meals(t_philo *philo)
 		pthread_mutex_unlock(philo->end);
 		return (false);
 	}
+	philo->done_eating = true;
 	pthread_mutex_unlock(philo->end);
 	return (true);
 }
@@ -61,21 +63,26 @@ void	check_thread(t_philos_data *philos_data)
 {
 	int		count;
 	bool	ok;
+	bool	eating;
 
+	eating = false;
 	ok = false;
-	count = 0;
 	while (ok == false)
 	{
 		count = 0;
-//		pthread_mutex_lock(philos_data->end);
+		pthread_mutex_lock(philos_data->end);
 		while (count < philos_data->amount)
 		{
 			ok = dead_or_alive(&philos_data->philos[count]);
+			if (!philos_data->philos[count].done_eating)
+				eating = true;
 			if (ok == true)
 				break ;
 			count++;
 		}
-//		pthread_mutex_unlock(philos_data->end);
+		pthread_mutex_unlock(philos_data->end);
+		if (!eating)
+			break ;
 		usleep(100);
 	}
 }

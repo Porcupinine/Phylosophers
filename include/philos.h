@@ -24,6 +24,7 @@
  */
 typedef struct s_philo
 {
+	bool				done_eating;
 	long				start;//main
 	int					number;
 	pid_t				thread_id;

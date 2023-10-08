@@ -32,8 +32,8 @@ static bool	grab_forks(t_philo *philo)
 		{
 			philo->forks_state[left] = true;
 			philo->forks_state[right] = true;
-			phi_message(philo, " has taken a fork");
-			phi_message(philo, " has taken a fork");
+			phi_message(philo, "has taken a fork");
+			phi_message(philo, "has taken a fork");
 			return (true);
 		}
 		pthread_mutex_unlock(&(philo->forks[right]));
