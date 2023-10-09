@@ -22,6 +22,7 @@ static bool	grab_forks(t_philo *philo)
 	size_t	left;
 	size_t	right;
 
+
 	left = philo->number - 1;
 	right = philo->number % philo->amount_of_philos;
 	pthread_mutex_lock(&(philo->forks[left]));
@@ -32,8 +33,8 @@ static bool	grab_forks(t_philo *philo)
 		{
 			philo->forks_state[left] = true;
 			philo->forks_state[right] = true;
-			phi_message(philo, "has taken a fork");
-			phi_message(philo, "has taken a fork");
+			pthread_mutex_unlock(&(philo->forks[right]));
+			pthread_mutex_unlock(&(philo->forks[left]));
 			return (true);
 		}
 		pthread_mutex_unlock(&(philo->forks[right]));
@@ -44,38 +45,38 @@ static bool	grab_forks(t_philo *philo)
 
 void	phi_wait_for_forks(t_philo *philo)
 {
-	size_t	left;
-	size_t	right;
-
-	left = philo->number - 1;
-	right = philo->number % philo->amount_of_philos;
 	while (true)
 	{
 		if (grab_forks(philo) == true)
 		{
-			pthread_mutex_unlock(&(philo->forks[right]));
-			pthread_mutex_unlock(&(philo->forks[left]));
+			phi_fork_message(philo, "has taken a fork");
+			philo->fork_attempts = 0;
 			break ;
 		}
-		usleep(10);
+		philo->fork_attempts++;
+//		phi_usleep((philo->lifespan / 100) / philo->fork_attempts);
+//		usleep((philo->lifespan / 100) / philo->fork_attempts);
 	}
 }
 
 void	phi_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->end);
+	pthread_mutex_lock(&philo->writing);
 	philo->last_meal = phi_time();
 	philo->meal_count++;
-	pthread_mutex_unlock(philo->end);
+	pthread_mutex_unlock(&philo->writing);
 	phi_message(philo, "is eating");
-	phi_usleep(philo, philo->eat);
+	usleep(philo->eat * 1000);
+//	phi_usleep(philo->eat * 1000);
 }
 
 void	phi_sleep(t_philo *philo)
 {
 	phi_message(philo, "is sleeping");
-	phi_usleep (philo, philo->sleep);
+	usleep(philo->sleep * 1000);
+//	phi_usleep (philo->sleep * 1000);
 	phi_message(philo, "is thinking");
+	usleep(philo->lifespan * 100);
 }
 
 void	*philo_routine(void *phi_data)

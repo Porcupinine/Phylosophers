@@ -38,6 +38,7 @@ static void	set_philo(t_philos_data *philos_data)
 		philos_data->philos[count - 1].end = philos_data->end;
 		philos_data->philos[count - 1].last_meal = philos_data->start;
 		philos_data->philos[count - 1].done_eating = false;
+		philos_data->philos[count - 1].fork_attempts = 0;
 		count++;
 	}
 }

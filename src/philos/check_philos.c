@@ -22,6 +22,7 @@ bool	dead_or_alive(t_philo *philo)
 
 	current_time = phi_time();
 	pthread_mutex_lock(philo->end);
+	pthread_mutex_lock(&philo->writing);
 	if ((current_time - philo->last_meal) > philo->lifespan && \
 	philo->done_eating == false)
 	{
@@ -29,12 +30,15 @@ bool	dead_or_alive(t_philo *philo)
 		pthread_mutex_lock(philo->message);
 		printf("%ld %d is dead\n", phi_time() - philo->start, philo->number);
 		pthread_mutex_unlock(philo->message);
+		pthread_mutex_unlock(&philo->writing);
 		pthread_mutex_unlock(philo->end);
 		return (true);
 	}
+	pthread_mutex_unlock(&philo->writing);
 	pthread_mutex_unlock(philo->end);
 	return (false);
-}
+}//TODO make their own mutex to check change their own status and check status, will it make it quicker ??
+
 
 bool	check_for_dead(t_philo *philo)
 {
@@ -48,14 +52,14 @@ bool	check_for_dead(t_philo *philo)
 
 bool	done_meals(t_philo *philo)
 {
-	pthread_mutex_lock(philo->end);
+	pthread_mutex_lock(&philo->writing);
 	if (philo->cycles == NULL || philo->meal_count != *philo->cycles)
 	{
-		pthread_mutex_unlock(philo->end);
+		pthread_mutex_unlock(&philo->writing);
 		return (false);
 	}
 	philo->done_eating = true;
-	pthread_mutex_unlock(philo->end);
+	pthread_mutex_unlock(&philo->writing);
 	return (true);
 }
 
@@ -70,7 +74,7 @@ void	check_thread(t_philos_data *philos_data)
 	while (ok == false)
 	{
 		count = 0;
-		pthread_mutex_lock(philos_data->end);
+//		pthread_mutex_lock(philos_data->end);
 		while (count < philos_data->amount)
 		{
 			ok = dead_or_alive(&philos_data->philos[count]);
@@ -80,9 +84,9 @@ void	check_thread(t_philos_data *philos_data)
 				break ;
 			count++;
 		}
-		pthread_mutex_unlock(philos_data->end);
+//		pthread_mutex_unlock(philos_data->end);
 		if (!eating)
 			break ;
-		usleep(100);
+		usleep(900);
 	}
 }

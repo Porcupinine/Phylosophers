@@ -1,5 +1,5 @@
 #--------------------------------------------------------------------Executable
-NAME	:= philosophers
+NAME	:= philo
 
 #----------------------------------------------------------------------Compiler
 CC 		=  -gcc
@@ -20,7 +20,7 @@ SRC	:= main.c \
 	src/philos/thread_philos.c \
 	src/utils/errors.c src/utils/message.c src/utils/phi_atoi.c \
 	src/utils/phi_calloc.c src/utils/phi_sleep.c src/utils/phi_strlen.c \
-	src/utils/phi_strncmp.c	src/utils/prints.c \
+	src/utils/phi_strncmp.c src/utils/prints.c \
 	src/utils/time.c
 
 #-----------------------------------------------------------------------Objects

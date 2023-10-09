@@ -28,13 +28,17 @@ void	phi_message(t_philo *philo, char *message)
 	pthread_mutex_unlock(philo->end);
 }
 
-void	phi_food_message(t_philo *philo, char *message)
+void	phi_fork_message(t_philo *philo, char *message)
 {
+	long	time;
+
+	time = phi_time() - philo->start;
 	pthread_mutex_lock(philo->end);
 	if (!*philo->funeral)
 	{
 		pthread_mutex_lock(philo->message);
-		printf("Meatime%ld %d %s\n", philo->last_meal - philo->start, philo->number, message);
+		printf("%ld %d %s\n%ld %d %s\n", time, philo->number, message,
+			   time, philo->number, message);
 		pthread_mutex_unlock(philo->message);
 	}
 	pthread_mutex_unlock(philo->end);

@@ -1,24 +1,21 @@
 
 #include "../../include/philos.h"
+#include "../../include/utils.h"
 #include <pthread.h>
 #include <unistd.h>
 
 
-void	phi_usleep(t_philo *philo, long time)
+void	phi_usleep(long time)
 {
 	int	count;
+	long goal_time;
+
+	goal_time = phi_time() + time;
 
 	count = 0;
-	while (count < 100)
+	while (phi_time() < goal_time)
 	{
-//		pthread_mutex_lock(philo->end);
-//		if (check_for_dead(philo) == true)
-//		{
-//			pthread_mutex_unlock(philo->end);
-//			return ;
-//		}
-//		pthread_mutex_unlock(philo->end);
-		usleep(time * 10);
+		usleep(100);
 		count++;
 	}
 }

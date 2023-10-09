@@ -24,6 +24,7 @@
  */
 typedef struct s_philo
 {
+	int					fork_attempts;
 	bool				done_eating;
 	long				start;//main
 	int					number;
