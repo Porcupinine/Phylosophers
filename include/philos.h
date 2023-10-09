@@ -43,7 +43,7 @@ typedef struct s_philo
 	pthread_mutex_t		*message;//main
 	pthread_mutex_t		*end;//main
 	bool				*forks_state;//main
-	bool				*funeral;//main
+	bool				my_funeral;//main
 }t_philo;
 
 /**
@@ -82,7 +82,8 @@ void	*philo_routine(void *philo_data);
 void	phi_pick_forks(t_philo *philo);
 void	phi_eat(t_philo *philo);
 void	phi_sleep(t_philo *philo);
-bool	dead_or_alive(t_philo *philo);
+
+bool dead_or_alive(t_philo *philo, t_philos_data *philos_data);
 void	free_data(t_philos_data *philos_data);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);

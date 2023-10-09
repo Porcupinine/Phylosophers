@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 	create_philos(run);
 	thread_philos(run);
 	if (run->funeral == true)
-		printf("\nSory, someone died, we must attend a philo funeral\n");
+		printf("\nSory, someone died, we must attend a philo my_funeral\n");
 	destroy_mutexes(run);
 	free_data(run);
 	free(run);

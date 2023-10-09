@@ -7,15 +7,15 @@
 
 void	phi_usleep(long time)
 {
-	int	count;
-	long goal_time;
+	int		count;
+	long	goal_time;
 
 	goal_time = phi_time() + time;
 
 	count = 0;
 	while (phi_time() < goal_time)
 	{
-		usleep(100);
+		usleep(1000);
 		count++;
 	}
 }

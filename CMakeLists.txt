@@ -3,8 +3,8 @@ project(Philosophers C)
 
 #add_compile_options(-fsanitize=address -fsanitize=leak -g3)
 #add_link_options(-fsanitize=address -fsanitize=leak)
-add_compile_options(-fsanitize=thread)
-add_link_options(-fsanitize=thread)
+#add_compile_options(-fsanitize=thread)
+#add_link_options(-fsanitize=thread)
 
 set(CMAKE_C_STANDARD 99)
 
