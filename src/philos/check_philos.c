@@ -76,6 +76,20 @@ bool	done_meals(t_philo *philo)
 	return (true);
 }
 
+void	all_fed(t_philos_data *philos_data)
+{
+	int count;
+
+	count = 0;
+	while (count < philos_data->amount)
+	{
+		pthread_mutex_lock(&philos_data->philos[count].writing);
+		philos_data->philos[count].all_fed = true;
+		pthread_mutex_unlock(&philos_data->philos[count].writing);
+		count++;
+	}
+}
+
 void	check_thread(t_philos_data *philos_data)
 {
 	int		count;
@@ -90,16 +104,18 @@ void	check_thread(t_philos_data *philos_data)
 		while (count < philos_data->amount)
 		{
 			ok = dead_or_alive(&philos_data->philos[count], philos_data);
-			pthread_mutex_lock(&philos_data->philos[count].writing);
 			if (done_meals(&philos_data->philos[count]) == false)
 				eating = true;
-			pthread_mutex_unlock(&philos_data->philos[count].writing);
 			if (ok == true)
 				break ;
 			count++;
 		}
 		if (eating == false)
+		{
+			all_fed(philos_data);
 			break ;
+		}
+		eating = false;
 		usleep(900);
 	}
 }

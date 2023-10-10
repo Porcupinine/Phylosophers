@@ -61,3 +61,18 @@ void	phi_attempt_message(t_philo *philo, char *message)
 	}
 	pthread_mutex_unlock(&philo->writing);
 }
+
+void	phi_meals_message(t_philo *philo, char *message)
+{
+	long	time;
+
+	time = phi_time() - philo->start;
+	pthread_mutex_lock(&philo->writing);
+	if (!philo->my_funeral)
+	{
+		pthread_mutex_lock(philo->message);
+		printf("%ld %d %s %d\n", time, philo->number, message, philo->meal_count);
+		pthread_mutex_unlock(philo->message);
+	}
+	pthread_mutex_unlock(&philo->writing);
+}

@@ -24,8 +24,9 @@ void	*ft_calloc(size_t count, size_t size);
 void	print_philos(t_philo *philos, size_t size);
 void	phi_message(t_philo *philo, char *message);
 int		phi_time(void);
-void	phi_usleep(long time);
+void	phi_usleep(t_philo *philo, long time);
 void	phi_fork_message(t_philo *philo, char *message);
 void	phi_attempt_message(t_philo *philo, char *message);
+void	phi_meals_message(t_philo *philo, char *message);
 
 #endif //UTILS_H

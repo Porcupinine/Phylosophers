@@ -54,7 +54,6 @@ void	phi_wait_for_forks(t_philo *philo)
 			break ;
 		}
 		philo->fork_attempts++;
-//		phi_usleep((philo->lifespan / 100) / philo->fork_attempts);
 		usleep((philo->lifespan * 10) / philo->fork_attempts);
 	}
 }
@@ -69,15 +68,15 @@ void	phi_eat(t_philo *philo)
 	philo->meal_count++;
 	pthread_mutex_unlock(&philo->writing);
 	phi_message(philo, "is eating");
-	usleep(philo->eat * 1000);
-//	phi_usleep(philo->eat * 1000);
+//	usleep(philo->eat * 1000);
+	phi_usleep(philo, philo->eat * 1000);
 }
 
 void	phi_sleep(t_philo *philo)
 {
 	phi_message(philo, "is sleeping");
-	usleep(philo->sleep * 1000);
-//	phi_usleep (philo->sleep * 1000);
+//	usleep(philo->sleep * 1000);
+	phi_usleep (philo, philo->sleep * 1000);
 	phi_message(philo, "is thinking");
 	usleep(philo->lifespan * 100);
 }
@@ -87,7 +86,7 @@ void	*philo_routine(void *phi_data)
 	t_philo	*philo;
 
 	philo = (t_philo *) phi_data;
-	while (check_for_dead(philo) == false)
+	while (check_for_dead(philo) == false && philo->all_fed == false)
 	{
 		phi_wait_for_forks(philo);
 		phi_eat(philo);
