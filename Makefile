@@ -35,7 +35,7 @@ all: $(NAME)
 
 $(OBJ_DIR)%.o : %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) $(ASANTHREAD) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJECTS_PREFIXED)
 	@$(CC) $(OBJECTS_PREFIXED) $(HEADERS) -o $(NAME)

@@ -87,18 +87,18 @@ void	check_thread(t_philos_data *philos_data)
 	while (ok == false)
 	{
 		count = 0;
-//		pthread_mutex_lock(philos_data->end);
 		while (count < philos_data->amount)
 		{
 			ok = dead_or_alive(&philos_data->philos[count], philos_data);
-			if (!philos_data->philos[count].done_eating)
+			pthread_mutex_lock(&philos_data->philos[count].writing);
+			if (done_meals(&philos_data->philos[count]) == false)
 				eating = true;
+			pthread_mutex_unlock(&philos_data->philos[count].writing);
 			if (ok == true)
 				break ;
 			count++;
 		}
-//		pthread_mutex_unlock(philos_data->end);
-		if (!eating)
+		if (eating == false)
 			break ;
 		usleep(900);
 	}

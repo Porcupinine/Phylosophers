@@ -15,7 +15,7 @@
 #include "../../include/utils.h"
 #include <unistd.h>
 
-int	join_philos(t_philos_data *philos_data)
+static int	join_philos(t_philos_data *philos_data)
 {
 	int	count;
 

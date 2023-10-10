@@ -72,22 +72,66 @@ typedef struct s_philos_data
 	pthread_t			*philo_t;
 }t_philos_data;
 
+/**
+ * check for given data and store values if everything is ok
+ * @param argc amont of args
+ * @param argv array of args
+ * @param run philo data struct
+ * @return 0 if success 1 if data is invalid 2 if malloc fails
+ */
 int		set_data(int argc, char **argv, t_philos_data *run);
+/**
+ * create and initialize array of philos with given information
+ * @param philos_data
+ * @return
+ */
 int		create_philos(t_philos_data *philos_data);
+/**
+ * create one thread per philo and call the monitoring function
+ * that will check if everything is ok otherwise joins back to main
+ * @param philos_data
+ * @return 0 on success or 1 on failure
+ */
 int		thread_philos(t_philos_data *philos_data);
+/**
+ * init all needed mutexes and forks
+ * @param philos_data
+ * @return 0 on success or 1 on failure
+ */
 int		init_mutexes(t_philos_data *philos_data);
+/**
+ * destroy all mutexes
+ * @param philos_data
+ */
 void	destroy_mutexes(t_philos_data *philos_data);
+/**
+ * creare and initialize an array with one mutex per fork as well as
+ * a array of boolians containing a mutex pper fork, all initialized
+ * as false
+ * @param philos_data
+ * @return 0 on success or 1 on malloc fail
+ */
 int		create_forks(t_philos_data *philos_data);
+/**
+ *
+ * @param philo_data
+ * @return
+ */
 void	*philo_routine(void *philo_data);
 void	phi_pick_forks(t_philo *philo);
 void	phi_eat(t_philo *philo);
 void	phi_sleep(t_philo *philo);
-
-bool dead_or_alive(t_philo *philo, t_philos_data *philos_data);
+bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data);
 void	free_data(t_philos_data *philos_data);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
 bool	check_for_dead(t_philo *philo);
+/**
+ * check if there is a limit of meals and if given philo is done eating
+ * @param philo
+ * @return false if there is no limit or if philo still need to eat more
+ * true if philo is done with meals.
+ */
 bool	done_meals(t_philo *philo);
 void	check_thread(t_philos_data *philos_data);
 
