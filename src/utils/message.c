@@ -41,7 +41,7 @@ void	phi_fork_message(t_philo *philo, char *message)
 	{
 		pthread_mutex_lock(philo->message);
 		printf("%ld %d %s\n%ld %d %s\n", time, philo->number, message,
-			   time, philo->number, message);
+			time, philo->number, message);
 		pthread_mutex_unlock(philo->message);
 	}
 	pthread_mutex_unlock(&philo->writing);
