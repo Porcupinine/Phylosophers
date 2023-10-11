@@ -48,7 +48,7 @@ void	phi_wait_for_forks(t_philo *philo)
 	while (true)
 	{
 		if (philo->fork_attempts != 0)
-			usleep((philo->lifespan / 100) / philo->fork_attempts);
+			usleep((philo->lifespan / philo->amount_of_philos) / philo->fork_attempts);
 		if (grab_forks(philo) == true)
 		{
 			phi_fork_message(philo, "has taken a fork");
@@ -79,7 +79,8 @@ void	phi_sleep(t_philo *philo)
 	usleep(philo->sleep * 1000);
 //	phi_usleep (philo, philo->sleep * 1000);
 	phi_message(philo, "is thinking");
-	usleep(philo->lifespan * 100);
+	if(philo->amount_of_philos  % 2 != 0)
+		usleep(philo->lifespan * 100);
 }
 
 void	*philo_routine(void *phi_data)
