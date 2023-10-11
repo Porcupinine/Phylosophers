@@ -6,7 +6,7 @@
 /*   By: laura <laura@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 15:01:37 by laura         #+#    #+#                 */
-/*   Updated: 2023/09/27 15:01:37 by laura         ########   odam.nl         */
+/*   Updated: 2023/10/11 18:01:54 by lpraca-l      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,25 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 #include <unistd.h>
+
+static void going_to_funeral(const t_philo *philo, const t_philos_data *philos_data)
+{
+	int	count;
+
+	count = 0;
+	while (count < philos_data->amount)
+	{
+		if (&philos_data->philos[count] == philo)
+		{
+			count++;
+			continue ;
+		}
+		pthread_mutex_lock(&philos_data->philos[count].writing);
+		philos_data->philos[count].my_funeral = true;
+		pthread_mutex_unlock(&philos_data->philos[count].writing);
+		count++;
+	}
+}
 
 bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
 {
@@ -26,19 +45,7 @@ bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
 	philo->done_eating == false)
 	{
 		philo->my_funeral = true;
-		int count = 0;
-		while (count < philos_data->amount)
-		{
-			if (&philos_data->philos[count] == philo)
-			{
-				count++;
-				continue ;
-			}
-			pthread_mutex_lock(&philos_data->philos[count].writing);
-			philos_data->philos[count].my_funeral = true;
-			pthread_mutex_unlock(&philos_data->philos[count].writing);
-			count++;
-		}
+		going_to_funeral(philo, philos_data);
 		pthread_mutex_lock(philo->message);
 		printf("%ld %d is dead\n", current_time - philo->start, philo->number);
 		pthread_mutex_unlock(philo->message);
@@ -75,7 +82,7 @@ bool	done_meals(t_philo *philo)
 
 void	all_fed(t_philos_data *philos_data)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count < philos_data->amount)

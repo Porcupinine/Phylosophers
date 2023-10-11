@@ -6,7 +6,7 @@
 /*   By: laura <laura@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/18 10:35:56 by laura         #+#    #+#                 */
-/*   Updated: 2023/09/26 11:53:15 by lpraca-l      ########   odam.nl         */
+/*   Updated: 2023/10/11 17:58:14 by lpraca-l      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include "../../include/utils.h"
 #include <sys/time.h>
 
+//TODO is it too ugly if I make a null at the end of fork array? and return if right fork is null?
 static bool	grab_forks(t_philo *philo)
 {
 	size_t	left;
 	size_t	right;
-
 
 	left = philo->number - 1;
 	right = philo->number % philo->amount_of_philos;
@@ -48,7 +48,7 @@ void	phi_wait_for_forks(t_philo *philo)
 	while (true)
 	{
 		if (philo->fork_attempts != 0)
-			usleep((philo->lifespan / philo->amount_of_philos) / philo->fork_attempts);
+			usleep((philo->lifespan / 100) / philo->fork_attempts);
 		if (grab_forks(philo) == true)
 		{
 			phi_fork_message(philo, "has taken a fork");
