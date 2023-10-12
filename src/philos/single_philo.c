@@ -13,7 +13,6 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 
-
 void	*single_philo_routine(void *phi_data)
 {
 	t_philo	*philo;

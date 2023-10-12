@@ -17,31 +17,6 @@
 #include "../../include/utils.h"
 #include <sys/time.h>
 
-static bool	grab_forks(t_philo *philo)
-{
-	size_t	left;
-	size_t	right;
-
-	left = philo->number - 1;
-	right = philo->number % philo->amount_of_philos;
-	pthread_mutex_lock(&(philo->forks[left]));
-	if (!philo->forks_state[left])
-	{
-		pthread_mutex_lock(&(philo->forks[right]));
-		if (!philo->forks_state[right])
-		{
-			philo->forks_state[left] = true;
-			philo->forks_state[right] = true;
-			pthread_mutex_unlock(&(philo->forks[right]));
-			pthread_mutex_unlock(&(philo->forks[left]));
-			return (true);
-		}
-		pthread_mutex_unlock(&(philo->forks[right]));
-	}
-	pthread_mutex_unlock(&(philo->forks[left]));
-	return (false);
-}
-
 void	phi_wait_for_forks(t_philo *philo)
 {
 	while (true)

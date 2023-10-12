@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: laura <laura@student.codam.nl>               +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/10/12 22:45:10 by laura         #+#    #+#                  #
+#    Updated: 2023/10/12 22:45:10 by laura         ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 #--------------------------------------------------------------------Executable
 NAME	:= philo
 
@@ -5,7 +17,7 @@ NAME	:= philo
 CC 		=  cc
 
 #-------------------------------------------------------------------------Flags
-CFLAGS	+= -Wextra -Wall -Werror -o3
+CFLAGS	+= -Wextra -Wall -Werror -O3
 ASANFLAGS += -g -fsanitize=address -fsanitize=leak
 ASANTHREAD += -g -fsanitize=thread
 
@@ -15,7 +27,8 @@ HEADERS	:= -I ./include
 #------------------------------------------------------------------------Source
 SRC	:= main.c \
 	src/check/check_input.c \
-	src/philos/actions.c src/philos/check_philos.c src/philos/create_philos.c \
+	src/philos/actions.c src/philos/check_life.c src/philos/check_meals.c \
+	src/philos/check_philos.c src/philos/create_philos.c src/philos/fork_actions.c\
 	src/philos/free_philos.c src/philos/mutex.c src/philos/philos.c \
 	src/philos/single_philo.c src/philos/thread_philos.c \
 	src/utils/errors.c src/utils/message.c src/utils/phi_atoi.c \

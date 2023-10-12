@@ -22,7 +22,6 @@ void	free_philos(t_philos_data *philos_data)
 	while (count < philos_data->amount)
 	{
 		pthread_mutex_destroy(&philos_data->philos[count].writing);
-		free(&philos_data->philos[count]);
 		count++;
 	}
 	free(philos_data->philos);
@@ -34,14 +33,19 @@ void	free_data(t_philos_data *philos_data)
 
 	count = 0;
 	free(philos_data->cycles);
-	if(philos_data->message != NULL)
-		free(philos_data->message);
-	while (count < philos_data->amount)
+	if (philos_data->message != NULL)
 	{
-		pthread_mutex_destroy(&philos_data->philos[count].writing);
-		count++;
+		pthread_mutex_destroy(philos_data->message);
+		free(philos_data->message);
+	}
+	if (philos_data->forks != NULL)
+	{
+		while (count < philos_data->amount)
+		{
+			pthread_mutex_destroy(&philos_data->forks[count]);
+			count++;
+		}
+		free(philos_data->forks);
 	}
 	free(philos_data->forks_state);
-	free(philos_data->philos);
-	free(philos_data->philo_t);
 }

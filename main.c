@@ -15,40 +15,65 @@
 #include "include/philos.h"
 #include "include/utils.h"
 
+static void	mutex_init_fail(t_philos_data *run)
+{
+	free_data(run);
+}
+
+static void	creat_philo_fail(t_philos_data *run)
+{
+	free_data(run);
+	free(run->philos);
+}
+
+static void	threads_fail(t_philos_data *run)
+{
+	free_data(run);
+	free_philos(run);
+	if (run->philo_t != NULL)
+		free(run->philo_t);
+}
+
+static int	set_table(t_philos_data *table)
+{
+	if (init_mutexes(table) == 1)
+	{
+		mutex_init_fail(table);
+		return (1);
+	}
+	if (create_philos(table) == 1)
+	{
+		creat_philo_fail(table);
+		return (1);
+	}
+	if (thread_philos(table) == 1)
+	{
+		threads_fail(table);
+		return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
-	t_philos_data	*run;
+	t_philos_data	*table;
 
-	run = ft_calloc(1, sizeof(t_philos_data));
-	if (run == NULL)
+	table = ft_calloc(1, sizeof(t_philos_data));
+	if (table == NULL)
 		return (1);
 	if (argc < 5 || argc > 6)
+		return (phi_error("Wrong amount of arguments\n"), 1);
+	if (set_data(argc, argv, table) == 1)
+		return (phi_error("invalid data\n"), 1);
+	table->start = phi_time();
+	if (set_table(table) == 1)
 	{
-		phi_error("Wrong amount of arguments\n");
+		free(table);
 		return (1);
 	}
-	if (set_data(argc, argv, run) == 1)
-	{
-		phi_error("invalid data\n");
-		return (1);
-	}
-	run->start = phi_time();
-	if (init_mutexes(run) == 1)
-	{
-		//TODO free data + whatever happenend on mutexes + run
-		return (1);
-	}
-	if (create_philos(run) == 1)
-	{
-		//TODO free data + whatever happened on philos creation + run
-		return (1);
-	}
-	if (thread_philos(run) == 1)
-	{
-		//TODO free data + philos + whatever happened on threads + run
-	}
-	destroy_mutexes(run);
-	free_data(run);
-	free(run);
+	free_data(table);
+	free_philos(table);
+	free(table->philo_t);
+	free(table);
 	return (0);
 }

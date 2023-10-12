@@ -14,7 +14,7 @@
 # define UTILS_H
 
 # include <stdlib.h>
-#include "philos.h"
+# include "philos.h"
 
 int		phi_strncmp(const char *str1, const char *str2, int len);
 int		phi_atoi(const char *str);

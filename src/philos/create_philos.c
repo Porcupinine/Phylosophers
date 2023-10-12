@@ -15,30 +15,50 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-static void	set_philo(t_philos_data *philos_data)
+static void	destroy_philo_mutex(t_philos_data *philos_data, int count)
+{
+	while (count >= 0)
+	{
+		pthread_mutex_destroy(&philos_data->philos[count - 1].writing);
+		count--;
+	}
+}
+
+static void	copy_data(t_philos_data *philos_data, const int count)
+{
+	philos_data->philos[count].start = philos_data->start;
+	philos_data->philos[count].amount_of_philos = philos_data->amount;
+	philos_data->philos[count].eat = philos_data->eat;
+	philos_data->philos[count].sleep = philos_data->sleep;
+	philos_data->philos[count].lifespan = philos_data->lifespan;
+	philos_data->philos[count].cycles = philos_data->cycles;
+	philos_data->philos[count].forks = philos_data->forks;
+	philos_data->philos[count].message = philos_data->message;
+	philos_data->philos[count].forks_state = philos_data->forks_state;
+}
+
+static int	set_philo(t_philos_data *philos_data)
 {
 	int	count;
 
-	count = 1;
+	count = 0;
 	while (count <= philos_data->amount)
 	{
-		philos_data->philos[count - 1].number = count;
-		philos_data->philos[count - 1].forks = philos_data->forks;
-		philos_data->philos[count - 1].cycles = philos_data->cycles;
-		philos_data->philos[count - 1].eat = philos_data->eat;
-		philos_data->philos[count - 1].sleep = philos_data->sleep;
-		philos_data->philos[count - 1].lifespan = philos_data->lifespan;
-		philos_data->philos[count - 1].amount_of_philos = philos_data->amount;
-		philos_data->philos[count - 1].start = philos_data->start;
-		philos_data->philos[count - 1].forks_state = philos_data->forks_state;
-		pthread_mutex_init(&philos_data->philos[count - 1].writing, NULL);
-		philos_data->philos[count - 1].message = philos_data->message;
-		philos_data->philos[count - 1].my_funeral = false;
-		philos_data->philos[count - 1].last_meal = philos_data->start;
-		philos_data->philos[count - 1].done_eating = false;
-		philos_data->philos[count - 1].fork_attempts = 0;
+		copy_data(philos_data, count);
+		philos_data->philos[count].number = count + 1;
+		if (pthread_mutex_init(&philos_data->philos[count].writing, \
+		NULL) != 0)
+		{
+			destroy_philo_mutex(philos_data, count);
+			return (1);
+		}
+		philos_data->philos[count].my_funeral = false;
+		philos_data->philos[count].last_meal = philos_data->start;
+		philos_data->philos[count].done_eating = false;
+		philos_data->philos[count].fork_attempts = 0;
 		count++;
 	}
+	return (0);
 }
 
 int	create_philos(t_philos_data *philos_data)
@@ -47,7 +67,7 @@ int	create_philos(t_philos_data *philos_data)
 	sizeof (t_philo));
 	if (philos_data->philos == NULL)
 		return (1);
-	philos_data->funeral = false;
-	set_philo(philos_data);
+	if (set_philo(philos_data) == 1)
+		return (1);
 	return (0);
 }

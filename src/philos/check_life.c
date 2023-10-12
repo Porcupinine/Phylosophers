@@ -46,7 +46,8 @@ bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
 		philo->my_funeral = true;
 		going_to_funeral(philo, philos_data);
 		pthread_mutex_lock(philo->message);
-		printf("%ld %d is dead\n", current_time - philo->start, philo->number);
+		printf("%ld %d is dead\n", current_time - philo->start, \
+		philo->number);
 		pthread_mutex_unlock(philo->message);
 		pthread_mutex_unlock(&philo->writing);
 		return (true);
@@ -54,7 +55,6 @@ bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
 	pthread_mutex_unlock(&philo->writing);
 	return (false);
 }
-//TODO make their own mutex to check change their own status and check status, will it make it quicker ??
 
 bool	check_for_dead(t_philo *philo)
 {

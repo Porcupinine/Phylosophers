@@ -14,7 +14,7 @@
 # define PHILOS_H
 
 # include <sys/types.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 /**
  * @param number philo tag;
@@ -27,23 +27,21 @@ typedef struct s_philo
 	bool				all_fed;
 	int					fork_attempts;
 	bool				done_eating;
-	long				start;//main
 	int					number;
-	pid_t				thread_id;
 	long				last_meal;
 	long				sleep_timer;
-	int					amount_of_philos;//main
-	long				eat;//main
-	long				sleep;//main
-	long				lifespan;//main
-	int					*cycles;//main
-	int					meal_count;
-	pthread_mutex_t		*forks;//main
 	pthread_mutex_t		writing;
-	pthread_mutex_t		*message;//main
-	pthread_mutex_t		*end;//main
-	bool				*forks_state;//main
-	bool				my_funeral;//main
+	bool				my_funeral;
+	int					meal_count;
+	int					amount_of_philos;
+	long				eat;
+	long				sleep;
+	long				lifespan;
+	int					*cycles;
+	long				start;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		*message;
+	bool				*forks_state;
 }t_philo;
 
 /**
@@ -65,7 +63,6 @@ typedef struct s_philos_data
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*message;
-	pthread_mutex_t		*end;
 	bool				*forks_state;
 	bool				funeral;
 	pthread_t			*philo_t;
@@ -136,5 +133,7 @@ bool	done_meals(t_philo *philo);
 void	check_thread(t_philos_data *philos_data);
 void	*single_philo_routine(void *philo);
 void	all_fed(t_philos_data *philos_data);
+void	free_philos(t_philos_data *philos_data);
+bool	grab_forks(t_philo *philo);
 
 #endif //PHILOS_H
