@@ -17,7 +17,6 @@
 #include "../../include/utils.h"
 #include <sys/time.h>
 
-//TODO is it too ugly if I make a null at the end of fork array? and return if right fork is null?
 static bool	grab_forks(t_philo *philo)
 {
 	size_t	left;
@@ -69,17 +68,15 @@ void	phi_eat(t_philo *philo)
 	philo->meal_count++;
 	pthread_mutex_unlock(&philo->writing);
 	phi_message(philo, "is eating");
-	usleep(philo->eat * 1000);
-//	phi_usleep(philo, philo->eat * 1000);
+	phi_usleep(philo, philo->eat);
 }
 
 void	phi_sleep(t_philo *philo)
 {
 	phi_message(philo, "is sleeping");
-	usleep(philo->sleep * 1000);
-//	phi_usleep (philo, philo->sleep * 1000);
+	phi_usleep (philo, philo->sleep);
 	phi_message(philo, "is thinking");
-	if(philo->amount_of_philos  % 2 != 0)
+	if (philo->amount_of_philos % 2 != 0)
 		usleep(philo->lifespan * 100);
 }
 
@@ -88,6 +85,8 @@ void	*philo_routine(void *phi_data)
 	t_philo	*philo;
 
 	philo = (t_philo *) phi_data;
+	if (philo->amount_of_philos == 2 && philo->number == 2)
+		usleep(philo->eat);
 	while (check_for_dead(philo) == false && philo->all_fed == false)
 	{
 		phi_wait_for_forks(philo);

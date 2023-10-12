@@ -33,11 +33,20 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	run->start = phi_time();
-	init_mutexes(run);
-	create_philos(run);
-	thread_philos(run);
-	if (run->funeral == true)
-		printf("\nSory, someone died, we must attend a philo my_funeral\n");
+	if (init_mutexes(run) == 1)
+	{
+		//TODO free data + whatever happenend on mutexes + run
+		return (1);
+	}
+	if (create_philos(run) == 1)
+	{
+		//TODO free data + whatever happened on philos creation + run
+		return (1);
+	}
+	if (thread_philos(run) == 1)
+	{
+		//TODO free data + philos + whatever happened on threads + run
+	}
 	destroy_mutexes(run);
 	free_data(run);
 	free(run);

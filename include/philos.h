@@ -39,7 +39,6 @@ typedef struct s_philo
 	int					*cycles;//main
 	int					meal_count;
 	pthread_mutex_t		*forks;//main
-	pthread_mutex_t		*thinking;//main
 	pthread_mutex_t		writing;
 	pthread_mutex_t		*message;//main
 	pthread_mutex_t		*end;//main
@@ -65,7 +64,6 @@ typedef struct s_philos_data
 	int					*cycles;
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
-	pthread_mutex_t		*thinking;
 	pthread_mutex_t		*message;
 	pthread_mutex_t		*end;
 	bool				*forks_state;
@@ -127,6 +125,7 @@ void	free_data(t_philos_data *philos_data);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
 bool	check_for_dead(t_philo *philo);
+void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
 /**
  * check if there is a limit of meals and if given philo is done eating
  * @param philo
@@ -135,5 +134,7 @@ bool	check_for_dead(t_philo *philo);
  */
 bool	done_meals(t_philo *philo);
 void	check_thread(t_philos_data *philos_data);
+void	*single_philo_routine(void *philo);
+void	all_fed(t_philos_data *philos_data);
 
 #endif //PHILOS_H

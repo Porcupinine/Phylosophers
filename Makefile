@@ -2,12 +2,12 @@
 NAME	:= philo
 
 #----------------------------------------------------------------------Compiler
-CC 		=  -gcc
+CC 		=  cc
 
 #-------------------------------------------------------------------------Flags
 CFLAGS	+= -Wextra -Wall -Werror -o3
-ASANFLAGS += -fsanitize=address -fsanitize=leak
-ASANTHREAD += -fsanitize=thread
+ASANFLAGS += -g -fsanitize=address -fsanitize=leak
+ASANTHREAD += -g -fsanitize=thread
 
 #-----------------------------------------------------------------------Headers
 HEADERS	:= -I ./include
@@ -17,7 +17,7 @@ SRC	:= main.c \
 	src/check/check_input.c \
 	src/philos/actions.c src/philos/check_philos.c src/philos/create_philos.c \
 	src/philos/free_philos.c src/philos/mutex.c src/philos/philos.c \
-	src/philos/thread_philos.c \
+	src/philos/single_philo.c src/philos/thread_philos.c \
 	src/utils/errors.c src/utils/message.c src/utils/phi_atoi.c \
 	src/utils/phi_calloc.c src/utils/phi_sleep.c src/utils/phi_strlen.c \
 	src/utils/phi_strncmp.c src/utils/prints.c \

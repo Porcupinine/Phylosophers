@@ -40,18 +40,10 @@ int	create_forks(t_philos_data *philos_data)
 
 int	init_mutexes(t_philos_data *philos_data)
 {
-	philos_data->thinking = ft_calloc(1, sizeof (pthread_mutex_t));
-	if (philos_data->thinking == NULL)
-		return (1);
-	pthread_mutex_init(philos_data->thinking, NULL);
 	philos_data->message = ft_calloc(1, sizeof (pthread_mutex_t));
 	if (philos_data->message == NULL)
 		return (1);
 	pthread_mutex_init(philos_data->message, NULL);
-	philos_data->end = ft_calloc(1, sizeof (pthread_mutex_t));
-	if (philos_data->end == NULL)
-		return (1);
-	pthread_mutex_init(philos_data->end, NULL);
 	if (create_forks(philos_data) == 1)
 		return (1);
 	return (0);
@@ -62,7 +54,6 @@ void	destroy_mutexes(t_philos_data *philos_data)
 	int	count;
 
 	count = 0;
-	pthread_mutex_destroy(philos_data->thinking);
 	pthread_mutex_destroy(philos_data->message);
 	pthread_mutex_destroy(philos_data->end);
 	while (count < philos_data->amount)

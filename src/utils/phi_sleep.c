@@ -15,7 +15,7 @@ void	phi_usleep(t_philo *philo, long time)
 	while (phi_time() < goal_time)
 	{
 //		pthread_mutex_lock(philo->message);
-//		printf("phi_time: %d   goal_time: %ld   time:%ld\n", phi_time(), goal_time, time);
+//		printf("philo: %d    phi_time: %d   goal_time: %ld   time:%ld    time to go: %ld\n", philo->number, phi_time(), goal_time, time, goal_time - phi_time() );
 //		pthread_mutex_unlock(philo->message);
 
 		pthread_mutex_lock(&philo->writing);

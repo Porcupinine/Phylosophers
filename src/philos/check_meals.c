@@ -1,47 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_philos.c                                      :+:    :+:            */
+/*   check_meals.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laura <laura@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/09/29 16:01:19 by laura         #+#    #+#                 */
-/*   Updated: 2023/09/29 16:01:19 by laura         ########   odam.nl         */
+/*   Created: 2023/10/12 13:33:04 by laura         #+#    #+#                 */
+/*   Updated: 2023/10/12 13:33:04 by laura         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philos.h"
 #include <pthread.h>
-#include <stdlib.h>
 
-void	free_philos(t_philos_data *philos_data)
+bool	done_meals(t_philo *philo)
 {
-	int	count;
-
-	count = 0;
-	while (count < philos_data->amount)
+	pthread_mutex_lock(&philo->writing);
+	if (philo->cycles == NULL || philo->meal_count != *philo->cycles)
 	{
-		pthread_mutex_destroy(&philos_data->philos[count].writing);
-		free(&philos_data->philos[count]);
-		count++;
+		pthread_mutex_unlock(&philo->writing);
+		return (false);
 	}
-	free(philos_data->philos);
+	philo->done_eating = true;
+	pthread_mutex_unlock(&philo->writing);
+	return (true);
 }
 
-void	free_data(t_philos_data *philos_data)
+void	all_fed(t_philos_data *philos_data)
 {
 	int	count;
 
 	count = 0;
-	free(philos_data->cycles);
-	if(philos_data->message != NULL)
-		free(philos_data->message);
 	while (count < philos_data->amount)
 	{
-		pthread_mutex_destroy(&philos_data->philos[count].writing);
+		pthread_mutex_lock(&philos_data->philos[count].writing);
+		philos_data->philos[count].all_fed = true;
+		pthread_mutex_unlock(&philos_data->philos[count].writing);
 		count++;
 	}
-	free(philos_data->forks_state);
-	free(philos_data->philos);
-	free(philos_data->philo_t);
 }

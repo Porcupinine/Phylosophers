@@ -16,84 +16,6 @@
 #include "../../include/utils.h"
 #include <unistd.h>
 
-static void going_to_funeral(const t_philo *philo, const t_philos_data *philos_data)
-{
-	int	count;
-
-	count = 0;
-	while (count < philos_data->amount)
-	{
-		if (&philos_data->philos[count] == philo)
-		{
-			count++;
-			continue ;
-		}
-		pthread_mutex_lock(&philos_data->philos[count].writing);
-		philos_data->philos[count].my_funeral = true;
-		pthread_mutex_unlock(&philos_data->philos[count].writing);
-		count++;
-	}
-}
-
-bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
-{
-	long	current_time;
-
-	current_time = phi_time();
-	pthread_mutex_lock(&philo->writing);
-	if ((current_time - philo->last_meal) > philo->lifespan && \
-	philo->done_eating == false)
-	{
-		philo->my_funeral = true;
-		going_to_funeral(philo, philos_data);
-		pthread_mutex_lock(philo->message);
-		printf("%ld %d is dead\n", current_time - philo->start, philo->number);
-		pthread_mutex_unlock(philo->message);
-		pthread_mutex_unlock(&philo->writing);
-		return (true);
-	}
-	pthread_mutex_unlock(&philo->writing);
-	return (false);
-}//TODO make their own mutex to check change their own status and check status, will it make it quicker ??
-
-
-bool	check_for_dead(t_philo *philo)
-{
-	bool	dead;
-
-	pthread_mutex_lock(&philo->writing);
-	dead = philo->my_funeral;
-	pthread_mutex_unlock(&philo->writing);
-	return (dead);
-}
-
-bool	done_meals(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->writing);
-	if (philo->cycles == NULL || philo->meal_count != *philo->cycles)
-	{
-		pthread_mutex_unlock(&philo->writing);
-		return (false);
-	}
-	philo->done_eating = true;
-	pthread_mutex_unlock(&philo->writing);
-	return (true);
-}
-
-void	all_fed(t_philos_data *philos_data)
-{
-	int	count;
-
-	count = 0;
-	while (count < philos_data->amount)
-	{
-		pthread_mutex_lock(&philos_data->philos[count].writing);
-		philos_data->philos[count].all_fed = true;
-		pthread_mutex_unlock(&philos_data->philos[count].writing);
-		count++;
-	}
-}
-
 void	check_thread(t_philos_data *philos_data)
 {
 	int		count;
@@ -115,10 +37,7 @@ void	check_thread(t_philos_data *philos_data)
 			count++;
 		}
 		if (eating == false)
-		{
-			all_fed(philos_data);
-			break ;
-		}
+			return (all_fed(philos_data));
 		eating = false;
 		usleep(900);
 	}

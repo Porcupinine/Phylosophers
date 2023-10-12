@@ -31,11 +31,9 @@ static void	set_philo(t_philos_data *philos_data)
 		philos_data->philos[count - 1].amount_of_philos = philos_data->amount;
 		philos_data->philos[count - 1].start = philos_data->start;
 		philos_data->philos[count - 1].forks_state = philos_data->forks_state;
-		philos_data->philos[count - 1].thinking = philos_data->thinking;
 		pthread_mutex_init(&philos_data->philos[count - 1].writing, NULL);
 		philos_data->philos[count - 1].message = philos_data->message;
 		philos_data->philos[count - 1].my_funeral = false;
-		philos_data->philos[count - 1].end = philos_data->end;
 		philos_data->philos[count - 1].last_meal = philos_data->start;
 		philos_data->philos[count - 1].done_eating = false;
 		philos_data->philos[count - 1].fork_attempts = 0;
@@ -52,5 +50,4 @@ int	create_philos(t_philos_data *philos_data)
 	philos_data->funeral = false;
 	set_philo(philos_data);
 	return (0);
-	//TODO track fail
 }
