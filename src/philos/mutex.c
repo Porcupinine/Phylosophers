@@ -65,23 +65,11 @@ int	init_mutexes(t_philos_data *philos_data)
 
 void	unlock_forks(t_philo *philo)
 {
-	size_t	left;
-	size_t	right;
-
-	if (philo->number == philo->amount_of_philos)
-	{
-		left = philo->number % philo->amount_of_philos;
-		right = philo->number - 1;
-	}
-	else
-	{
-		left = philo->number - 1;
-		right = philo->number % philo->amount_of_philos;
-	}
-	pthread_mutex_lock(&(philo->forks[left]));
-	pthread_mutex_lock(&(philo->forks[right]));
-	philo->forks_state[left] = false;
-	philo->forks_state[right] = false;
-	pthread_mutex_unlock(&(philo->forks[right]));
-	pthread_mutex_unlock(&(philo->forks[left]));
+	pthread_mutex_lock(&(philo->forks[philo->l_fork_position]));
+	philo->forks_state[philo->l_fork_position] = false;
+	pthread_mutex_unlock(&(philo->forks[philo->l_fork_position]));
+	pthread_mutex_lock(&(philo->forks[philo->r_fork_position]));
+	philo->forks_state[philo->r_fork_position] = false;
+	pthread_mutex_unlock(&(philo->forks[philo->r_fork_position]));
 }
+

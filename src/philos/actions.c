@@ -41,9 +41,11 @@ void	phi_eat(t_philo *philo)
 	time = phi_time();
 	pthread_mutex_lock(&philo->writing);
 	philo->last_meal = time;
-	philo->meal_count++;
 	pthread_mutex_unlock(&philo->writing);
-	phi_message(philo, "is eating");
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->meal_count++;
+	pthread_mutex_unlock(&philo->meal_mutex);
+	phi_food_message(philo, "is eating");
 	phi_usleep(philo, philo->eat);
 }
 
@@ -63,6 +65,8 @@ void	*philo_routine(void *phi_data)
 	philo = (t_philo *) phi_data;
 	if (philo->amount_of_philos == 2 && philo->number == 2)
 		usleep(philo->eat);
+	if (philo->number % 2 == 0)
+		usleep(philo->eat * 100);
 	while (check_for_dead(philo) == false && philo->all_fed == false)
 	{
 		phi_wait_for_forks(philo);

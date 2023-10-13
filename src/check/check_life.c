@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include <stdio.h>
 
-void	going_to_funeral(t_philo *philo, t_philos_data *philos_data)
+static void	going_to_funeral(t_philo *philo, t_philos_data *philos_data)
 {
 	int	count;
 

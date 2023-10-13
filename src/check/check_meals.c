@@ -15,14 +15,14 @@
 
 bool	done_meals(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->writing);
+	pthread_mutex_lock(&philo->meal_mutex);
 	if (philo->cycles == NULL || philo->meal_count != *philo->cycles)
 	{
-		pthread_mutex_unlock(&philo->writing);
+		pthread_mutex_unlock(&philo->meal_mutex);
 		return (false);
 	}
 	philo->done_eating = true;
-	pthread_mutex_unlock(&philo->writing);
+	pthread_mutex_unlock(&philo->meal_mutex);
 	return (true);
 }
 
@@ -33,9 +33,9 @@ void	all_fed(t_philos_data *philos_data)
 	count = 0;
 	while (count < philos_data->amount)
 	{
-		pthread_mutex_lock(&philos_data->philos[count].writing);
+		pthread_mutex_lock(&philos_data->philos[count].meal_mutex);
 		philos_data->philos[count].all_fed = true;
-		pthread_mutex_unlock(&philos_data->philos[count].writing);
+		pthread_mutex_unlock(&philos_data->philos[count].meal_mutex);
 		count++;
 	}
 }

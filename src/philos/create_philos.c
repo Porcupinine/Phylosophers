@@ -52,10 +52,18 @@ static int	set_philo(t_philos_data *philos_data)
 			destroy_philo_mutex(philos_data, count);
 			return (1);
 		}
+		if (pthread_mutex_init(&philos_data->philos[count].meal_mutex, \
+		NULL) != 0)
+		{
+			//TODO destroy
+			destroy_philo_mutex(philos_data, count);
+			return (1);
+		}
 		philos_data->philos[count].my_funeral = false;
 		philos_data->philos[count].last_meal = philos_data->start;
 		philos_data->philos[count].done_eating = false;
 		philos_data->philos[count].fork_attempts = 0;
+		set_forks(&philos_data->philos[count]);
 		count++;
 	}
 	return (0);

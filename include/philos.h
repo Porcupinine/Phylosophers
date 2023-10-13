@@ -17,11 +17,17 @@
 # include <stdbool.h>
 
 /**
- * @param number philo tag;
- * @param thread_id philo id;
- * @param last_meal when philo was done eating
- * @param sleep_timer when philo started slepping
- */
+ * @param all_fed true if all philos had enough food
+ * @param fork_attempts incremented everytime that a philo fails
+ * to pick its forks, before new atempt philo will sleep based on
+ * how many attempts it has made before, the more it trys the less
+ * it sleeps
+ * @param done_eating personal full philo flag
+ * @param writing personal philo mutex to write last_meal and meal_count
+ * also used to check if given philo is alive or if it is full
+ * @param my_funeral personal bool is set to true in case any philo dies
+ *
+\ */
 typedef struct s_philo
 {
 	bool				all_fed;
@@ -29,8 +35,8 @@ typedef struct s_philo
 	bool				done_eating;
 	int					number;
 	long				last_meal;
-	long				sleep_timer;
 	pthread_mutex_t		writing;
+	pthread_mutex_t		meal_mutex;
 	bool				my_funeral;
 	int					meal_count;
 	int					amount_of_philos;
@@ -39,6 +45,10 @@ typedef struct s_philo
 	long				lifespan;
 	int					*cycles;
 	long				start;
+	int					l_fork_position;
+	int					r_fork_position;
+	pthread_mutex_t		*l_fork;
+	pthread_mutex_t		*r_fork;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*message;
 	bool				*forks_state;
@@ -51,6 +61,11 @@ typedef struct s_philo
  * @param sleep how long a philo takes to recharge its batteries
  * @param cycles (optional) how many times each philo should eat before we
  * are done
+ * @param philos array were all the philos live
+ * @param forks array with a mutex per fork
+ * @param forks_state array of boolians one per fork, true is they are in
+ * use, false if not
+ * @param philo_t array with all philo threads
  */
 typedef struct s_philos_data
 {
@@ -64,7 +79,6 @@ typedef struct s_philos_data
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*message;
 	bool				*forks_state;
-	bool				funeral;
 	pthread_t			*philo_t;
 }t_philos_data;
 
@@ -109,26 +123,55 @@ void	destroy_mutexes(t_philos_data *philos_data);
  */
 int		create_forks(t_philos_data *philos_data);
 /**
- *
+ * Routine that keeps the philos on a pick_forks, eat, sleep untill
+ * either one philo is dead or all philos had at least x amount of
+ * meals
  * @param philo_data
- * @return
+ * @return NUll when it's done
  */
 void	*philo_routine(void *philo_data);
-void	phi_pick_forks(t_philo *philo);
-void	phi_eat(t_philo *philo);
-void	phi_sleep(t_philo *philo);
-void	free_data(t_philos_data *philos_data);
-void	lock_forks(t_philo *philo);
-void	unlock_forks(t_philo *philo);
-void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
 /**
- * check if there is a limit of meals and if given philo is done eating
+ * Routine in case there is a single philo a the table
  * @param philo
- * @return false if there is no limit or if philo still need to eat more
- * true if philo is done with meals.
+ * @return NUll when it's done
  */
 void	*single_philo_routine(void *philo);
+//void	phi_pick_forks(t_philo *philo);
+//void	phi_eat(t_philo *philo);
+//void	phi_sleep(t_philo *philo);
+/**
+ * Free data and destroy mutexes
+ * @param philos_data
+ */
+void	free_data(t_philos_data *philos_data);
+//void	lock_forks(t_philo *philo);
+/**
+ * use forks mutexes to change the forks_state once philos is done eating
+ * @param philo
+ */
+void	unlock_forks(t_philo *philo);
+/**
+ *
+ * @param philo
+ * @param philos_data
+ */
+//void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
+/**
+ * destroy writing mutexes and free philos array
+ * @param philos_data
+ */
 void	free_philos(t_philos_data *philos_data);
+/**
+ * given philo locks first fork, checks if it is available
+ * if it is, wait to lock second fork and if it's also available,
+ * change theis status unlock mutexes and go eat. If any fork is
+ * unavailable mutexes are unclocked and philo sleeps a bit before
+ * next attempt
+ * @param philo
+ * @return
+ */
 bool	grab_forks(t_philo *philo);
+void	set_forks(t_philo *philo);
+void	phi_food_message(t_philo *philo, char *message);
 
 #endif //PHILOS_H
