@@ -16,6 +16,7 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 #include <sys/time.h>
+#include "../../include/check.h"
 
 void	phi_wait_for_forks(t_philo *philo)
 {

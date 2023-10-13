@@ -13,6 +13,14 @@
 #ifndef CHECK_H
 # define CHECK_H
 
+#include "philos.h"
+
 int	check_int_limits(char *str);
+void	check_thread(t_philos_data *philos_data);
+bool	check_for_dead(t_philo *philo);
+bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data);
+bool	done_meals(t_philo *philo);
+void	all_fed(t_philos_data *philos_data);
+
 
 #endif //CHECK_H

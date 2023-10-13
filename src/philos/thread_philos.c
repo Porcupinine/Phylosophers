@@ -14,6 +14,7 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 #include <unistd.h>
+#include "../../include/check.h"
 
 static int	join_philos(t_philos_data *philos_data)
 {

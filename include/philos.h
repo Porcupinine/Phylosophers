@@ -117,11 +117,9 @@ void	*philo_routine(void *philo_data);
 void	phi_pick_forks(t_philo *philo);
 void	phi_eat(t_philo *philo);
 void	phi_sleep(t_philo *philo);
-bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data);
 void	free_data(t_philos_data *philos_data);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
-bool	check_for_dead(t_philo *philo);
 void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
 /**
  * check if there is a limit of meals and if given philo is done eating
@@ -129,10 +127,7 @@ void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
  * @return false if there is no limit or if philo still need to eat more
  * true if philo is done with meals.
  */
-bool	done_meals(t_philo *philo);
-void	check_thread(t_philos_data *philos_data);
 void	*single_philo_routine(void *philo);
-void	all_fed(t_philos_data *philos_data);
 void	free_philos(t_philos_data *philos_data);
 bool	grab_forks(t_philo *philo);
 

@@ -26,9 +26,9 @@ HEADERS	:= -I ./include
 
 #------------------------------------------------------------------------Source
 SRC	:= main.c \
-	src/check/check_input.c \
-	src/philos/actions.c src/philos/check_life.c src/philos/check_meals.c \
-	src/philos/check_philos.c src/philos/create_philos.c src/philos/fork_actions.c\
+	src/check/check_input.c src/check/check_life.c src/check/check_meals.c\
+	src/check/check_philos.c src/philos/actions.c  \
+	src/philos/create_philos.c src/philos/fork_actions.c\
 	src/philos/free_philos.c src/philos/mutex.c src/philos/philos.c \
 	src/philos/single_philo.c src/philos/thread_philos.c \
 	src/utils/errors.c src/utils/message.c src/utils/phi_atoi.c \

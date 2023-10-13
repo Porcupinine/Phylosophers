@@ -15,6 +15,7 @@
 #include "../../include/philos.h"
 #include "../../include/utils.h"
 #include <unistd.h>
+#include "../../include/check.h"
 
 void	check_thread(t_philos_data *philos_data)
 {
