@@ -18,7 +18,7 @@
 #include <sys/time.h>
 #include "../../include/check.h"
 
-void	phi_wait_for_forks(t_philo *philo)
+static void	phi_wait_for_forks(t_philo *philo)
 {
 	while (true)
 	{
@@ -34,7 +34,7 @@ void	phi_wait_for_forks(t_philo *philo)
 	}
 }
 
-void	phi_eat(t_philo *philo)
+static void	phi_eat(t_philo *philo)
 {
 	long	time;
 
@@ -49,7 +49,7 @@ void	phi_eat(t_philo *philo)
 	phi_usleep(philo, philo->eat);
 }
 
-void	phi_sleep(t_philo *philo)
+static void	phi_sleep(t_philo *philo)
 {
 	phi_message(philo, "is sleeping");
 	phi_usleep (philo, philo->sleep);
@@ -63,10 +63,11 @@ void	*philo_routine(void *phi_data)
 	t_philo	*philo;
 
 	philo = (t_philo *) phi_data;
-	if (philo->amount_of_philos == 2 && philo->number == 2)
-		usleep(philo->eat);
+//	if (philo->amount_of_philos == 2 && philo->number == 2)
+//		usleep(philo->eat);
 	if (philo->number % 2 == 0)
 		usleep(philo->eat * 100);
+//	philo->last_meal = phi_time();
 	while (check_for_dead(philo) == false && philo->all_fed == false)
 	{
 		phi_wait_for_forks(philo);

@@ -60,5 +60,8 @@ int	set_data(int argc, char **argv, t_philos_data *run)
 			return (2);
 		*run->cycles = phi_atoi(argv[5]);
 	}
+	run->start = ft_calloc(1, sizeof (long));
+	if (run->start == NULL)
+		return (1);
 	return (0);
 }

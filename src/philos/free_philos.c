@@ -22,6 +22,7 @@ void	free_philos(t_philos_data *philos_data)
 	while (count < philos_data->amount)
 	{
 		pthread_mutex_destroy(&philos_data->philos[count].writing);
+		pthread_mutex_destroy(&philos_data->philos[count].meal_mutex);
 		count++;
 	}
 	free(philos_data->philos);

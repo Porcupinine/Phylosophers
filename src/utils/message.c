@@ -27,7 +27,7 @@ void	phi_message(t_philo *philo, char *message)
 	if (!philo->my_funeral)
 	{
 		pthread_mutex_lock(philo->message);
-		printf("%ld %d %s\n", time - philo->start, philo->number, message);
+		printf("%ld %d %s\n", time - *(philo->start), philo->number, message);
 		pthread_mutex_unlock(philo->message);
 	}
 	//pthread_mutex_unlock(&philo->meal_mutex);
@@ -44,7 +44,7 @@ void	phi_food_message(t_philo *philo, char *message)
 	if (!philo->my_funeral)
 	{
 		pthread_mutex_lock(philo->message);
-		printf("%ld %d %s\n", philo->last_meal - philo->start, philo->number, message);
+		printf("%ld %d %s\n", philo->last_meal - *(philo->start), philo->number, message);
 		pthread_mutex_unlock(philo->message);
 	}
 	//pthread_mutex_unlock(&philo->meal_mutex);
@@ -61,8 +61,8 @@ void	phi_fork_message(t_philo *philo, char *message)
 	if (!philo->my_funeral)
 	{
 		pthread_mutex_lock(philo->message);
-		printf("%ld %d %s\n%ld %d %s\n", time - philo->start, philo->number, message,
-			time - philo->start, philo->number, message);
+		printf("%ld %d %s\n%ld %d %s\n", time - *(philo->start), philo->number, message,
+			time - *(philo->start), philo->number, message);
 		pthread_mutex_unlock(philo->message);
 	}
 	//pthread_mutex_unlock(&philo->meal_mutex);
@@ -73,7 +73,7 @@ void	phi_attempt_message(t_philo *philo, char *message)
 {
 	long	time;
 
-	time = phi_time() - philo->start;
+	time = phi_time() - *(philo->start);
 	pthread_mutex_lock(&philo->writing);
 	pthread_mutex_lock(&philo->meal_mutex);
 	if (!philo->my_funeral)
@@ -91,7 +91,7 @@ void	phi_meals_message(t_philo *philo, char *message)
 {
 	long	time;
 
-	time = phi_time() - philo->start;
+	time = phi_time() - *philo->start;
 	pthread_mutex_lock(&philo->writing);
 	pthread_mutex_lock(&philo->meal_mutex);
 	if (!philo->my_funeral)

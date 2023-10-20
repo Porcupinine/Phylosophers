@@ -36,7 +36,7 @@ static void	copy_data(t_philos_data *philos_data, const int count)
 	philos_data->philos[count].message = philos_data->message;
 	philos_data->philos[count].forks_state = philos_data->forks_state;
 }
-
+//TODO free start
 static int	set_philo(t_philos_data *philos_data)
 {
 	int	count;
@@ -55,12 +55,11 @@ static int	set_philo(t_philos_data *philos_data)
 		if (pthread_mutex_init(&philos_data->philos[count].meal_mutex, \
 		NULL) != 0)
 		{
-			//TODO destroy
 			destroy_philo_mutex(philos_data, count);
 			return (1);
 		}
 		philos_data->philos[count].my_funeral = false;
-		philos_data->philos[count].last_meal = philos_data->start;
+		philos_data->philos[count].last_meal = phi_time(); //TODO errrr...
 		philos_data->philos[count].done_eating = false;
 		philos_data->philos[count].fork_attempts = 0;
 		set_forks(&philos_data->philos[count]);

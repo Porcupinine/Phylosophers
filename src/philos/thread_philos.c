@@ -74,6 +74,7 @@ static int	thread_muilt_philo(t_philos_data *philos_data)
 
 int	thread_philos(t_philos_data *philos_data)
 {
+	*(philos_data->start) = phi_time();
 	if (philos_data->amount == 1)
 	{
 		if (thread_single_philo(philos_data) == 1)

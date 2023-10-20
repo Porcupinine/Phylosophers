@@ -13,6 +13,25 @@
 #include "../../include/philos.h"
 #include <pthread.h>
 
+void	set_forks_odd_even(t_philo *philo)
+{
+	int	right;
+	int	left;
+
+	if (philo->number % 2 == 0)
+	{
+		left = philo->number % philo->amount_of_philos;
+		right = philo->number - 1;
+	}
+	else
+	{
+		left = philo->number - 1;
+		right = philo->number % philo->amount_of_philos;
+	}
+	philo->l_fork_position = left;
+	philo->r_fork_position = right;
+}
+
 void	set_forks(t_philo *philo)
 {
 	int	right;
@@ -34,7 +53,6 @@ void	set_forks(t_philo *philo)
 
 bool	grab_forks(t_philo *philo)
 {
-
 	pthread_mutex_lock(&(philo->forks[philo->l_fork_position]));
 	if (!philo->forks_state[philo->l_fork_position])
 	{

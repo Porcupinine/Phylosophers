@@ -46,7 +46,7 @@ bool	dead_or_alive(t_philo *philo, t_philos_data *philos_data)
 		philo->my_funeral = true;
 		going_to_funeral(philo, philos_data);
 		pthread_mutex_lock(philo->message);
-		printf("%ld %d is dead\n", current_time - philo->start, \
+		printf("%ld %d is dead\n", current_time - *philo->start, \
 		philo->number);
 		pthread_mutex_unlock(philo->message);
 		pthread_mutex_unlock(&philo->writing);

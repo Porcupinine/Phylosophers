@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 		return (phi_error("Wrong amount of arguments\n"), 1);
 	if (set_data(argc, argv, table) == 1)
 		return (phi_error("invalid data\n"), 1);
-	table->start = phi_time();
+//	table->start = phi_time();
 	if (set_table(table) == 1)
 	{
 		free(table);

@@ -44,11 +44,9 @@ typedef struct s_philo
 	long				sleep;
 	long				lifespan;
 	int					*cycles;
-	long				start;
+	long				*start;
 	int					l_fork_position;
 	int					r_fork_position;
-	pthread_mutex_t		*l_fork;
-	pthread_mutex_t		*r_fork;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*message;
 	bool				*forks_state;
@@ -69,7 +67,7 @@ typedef struct s_philo
  */
 typedef struct s_philos_data
 {
-	long				start;
+	long				*start;
 	int					amount;
 	long				lifespan;
 	long				eat;
@@ -136,9 +134,6 @@ void	*philo_routine(void *philo_data);
  * @return NUll when it's done
  */
 void	*single_philo_routine(void *philo);
-//void	phi_pick_forks(t_philo *philo);
-//void	phi_eat(t_philo *philo);
-//void	phi_sleep(t_philo *philo);
 /**
  * Free data and destroy mutexes
  * @param philos_data
@@ -150,12 +145,6 @@ void	free_data(t_philos_data *philos_data);
  * @param philo
  */
 void	unlock_forks(t_philo *philo);
-/**
- *
- * @param philo
- * @param philos_data
- */
-//void	going_to_funeral(t_philo *philo, t_philos_data *philos_data);
 /**
  * destroy writing mutexes and free philos array
  * @param philos_data
@@ -173,5 +162,5 @@ void	free_philos(t_philos_data *philos_data);
 bool	grab_forks(t_philo *philo);
 void	set_forks(t_philo *philo);
 void	phi_food_message(t_philo *philo, char *message);
-
+void	set_forks_odd_even(t_philo *philo);
 #endif //PHILOS_H
