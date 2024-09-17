@@ -1,1 +1,2 @@
-# Philosophers
+
+Eat, sleep and think!
